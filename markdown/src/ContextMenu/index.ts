@@ -42,7 +42,7 @@ export const contextMenuItem: IContextMenuItem = {
   fileType: [FilesType.file],
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
   fileExt: [".md"],
-  security: [Security.Create],
+  security: [Security.Edit],
 };
 
 export const contextMenuViewerItem: IContextMenuItem = {
