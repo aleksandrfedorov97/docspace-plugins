@@ -38,5 +38,5 @@ export const contextMenuItem: IContextMenuItem = {
   fileType: [FilesType.image, FilesType.file],
   devices: [Devices.desktop],
   fileExt: [".drawio", ".png"],
-  security: [Security.Create],
+  security: [Security.Edit],
 };
