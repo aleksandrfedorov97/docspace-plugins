@@ -188,7 +188,7 @@ class Markdownit {
 
     const showSaveButton =
     !isVisitor &&
-    (access === 0 || access === 1 || access === 10 || access === 11);
+    (access === 0 || access === 1 || access === 9 || access === 10 || access === 11);
 
     this.currentFileId = file.id;
 
