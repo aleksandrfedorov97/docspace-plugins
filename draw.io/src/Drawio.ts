@@ -307,9 +307,10 @@ class DrawIo {
       const { title, security } = file;
 
       const showSaveButton =
-        security?.edit || //@ts-ignore
+        security?.Edit || //@ts-ignore
         file.access === 0 || //@ts-ignore
         file.access === 1 || //@ts-ignore
+        file.access === 9 || //@ts-ignore
         file.access === 10 || //@ts-ignore
         file.access === 11;
 
