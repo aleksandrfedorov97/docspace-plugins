@@ -1,5 +1,10 @@
 # Change Log
 
+##
+## Changed
+- support new DocSpace roles
+
+
 ## 1.0.2
 ## Changed
 - rename plugin's folder
