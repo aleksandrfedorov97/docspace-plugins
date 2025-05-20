@@ -36,6 +36,5 @@
   "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io",
   "cspDomains": [
     "https://embed.diagrams.net"
-  ],
-  "packageManager": "yarn@4.3.0"
+  ]
 }
