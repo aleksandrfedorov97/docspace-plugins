@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,11 +184,15 @@ class Markdownit {
       borderProp.color = "rgb(208, 213, 218)";
     }
 
-    const { access, title } = file;
+    const { access, security, title } = file;
 
     const showSaveButton =
-    !isVisitor &&
-    (access === 0 || access === 1 || access === 10 || access === 11);
+      security?.Edit ||
+      access === 0 ||
+      access === 1 ||
+      access === 9 ||
+      access === 10 ||
+      access === 11;
 
     this.currentFileId = file.id;
 

@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import {
   FilesExst,
   FilesType,
   IContextMenuItem,
+  Security,
 } from "@onlyoffice/docspace-plugin-sdk";
 import drawIo from "../Drawio";
 
@@ -37,4 +38,5 @@ export const contextMenuItem: IContextMenuItem = {
   fileType: [FilesType.image, FilesType.file],
   devices: [Devices.desktop],
   fileExt: [".drawio", ".png"],
+  security: [Security.Edit],
 };

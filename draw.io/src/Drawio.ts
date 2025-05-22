@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2025
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -307,9 +307,10 @@ class DrawIo {
       const { title, security } = file;
 
       const showSaveButton =
-        security?.edit || //@ts-ignore
+        security?.Edit || //@ts-ignore
         file.access === 0 || //@ts-ignore
         file.access === 1 || //@ts-ignore
+        file.access === 9 || //@ts-ignore
         file.access === 10 || //@ts-ignore
         file.access === 11;
 

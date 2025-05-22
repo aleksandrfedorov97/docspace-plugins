@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0
+## Changed
+- support new DocSpace roles
+
 ## 1.0.1
 ## Changed
 - minor bug fixes
