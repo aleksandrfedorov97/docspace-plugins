@@ -306,6 +306,15 @@ class DrawIo {
       //@ts-ignore
       const { title, security } = file;
 
+      if (!security?.Download) {
+        return {
+          actions: [Actions.showToast],
+          toastProps: [
+            { type: ToastType.error, title: "You don't have permission to view this file" } as IToast,
+          ],
+        };
+      }
+
       const showSaveButton =
         security?.Edit || //@ts-ignore
         file.access === 0 || //@ts-ignore
