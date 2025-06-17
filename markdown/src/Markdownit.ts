@@ -186,6 +186,15 @@ class Markdownit {
 
     const { access, security, title } = file;
 
+    if (!security?.Download) {
+      return {
+        actions: [Actions.showToast],
+        toastProps: [
+          { type: ToastType.error, title: "You don't have permission to view this file" } as IToast,
+        ],
+      };
+    }
+
     const showSaveButton =
       security?.Edit ||
       access === 0 ||
