@@ -1,4 +1,5 @@
 # Change Log
+- rename context menu option and show it with download permission
 - open file only with download permission
 
 ## 1.1.0
