@@ -186,6 +186,15 @@ class Markdownit {
 
     const { access, security, title } = file;
 
+    if (!security?.Download) {
+      return {
+        actions: [Actions.showToast],
+        toastProps: [
+          { type: ToastType.error, title: "You don't have permission to view this file" } as IToast,
+        ],
+      };
+    }
+
     const showSaveButton =
       security?.Edit ||
       access === 0 ||
@@ -196,7 +205,16 @@ class Markdownit {
 
     this.currentFileId = file.id;
 
-    const data = await fetch(file.viewUrl);
+    const data = await fetch(file.viewUrl, {redirect: "manual"});
+
+    if (data.status !== 200) {
+      return {
+        actions: [Actions.showToast],
+        toastProps: [
+          { type: ToastType.error, title: "Can't read this file" } as IToast,
+        ],
+      };
+    }
 
     const dataBlob = await data.blob();
 

@@ -1,4 +1,5 @@
 # Change Log
+- open file only with download permission
 
 ## 1.1.0
 ## Changed

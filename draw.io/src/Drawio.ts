@@ -306,6 +306,15 @@ class DrawIo {
       //@ts-ignore
       const { title, security } = file;
 
+      if (!security?.Download) {
+        return {
+          actions: [Actions.showToast],
+          toastProps: [
+            { type: ToastType.error, title: "You don't have permission to view this file" } as IToast,
+          ],
+        };
+      }
+
       const showSaveButton =
         security?.Edit || //@ts-ignore
         file.access === 0 || //@ts-ignore
@@ -316,7 +325,16 @@ class DrawIo {
 
       this.currentFileId = file.id;
 
-      const data = await fetch(file.viewUrl);
+      const data = await fetch(file.viewUrl, {redirect: "manual"});
+
+      if (data.status !== 200) {
+        return {
+          actions: [Actions.showToast],
+          toastProps: [
+            { type: ToastType.error, title: "Can't read this file" } as IToast,
+          ],
+        };
+      }
 
       const dataBlob = await data.blob();
 
