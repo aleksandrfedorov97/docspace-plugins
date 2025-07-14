@@ -1,0 +1,49 @@
+{
+    "fileTypes": [
+        {
+            "type": "word",
+            "extensions": ["doc", "docx"]
+        },
+        {
+            "type": "cell",
+            "extensions": ["xls", "xlsx"]
+        },
+        {
+            "type": "slide",
+            "extensions": ["ppt", "pptx"]
+        },
+        {
+            "type": "pdf",
+            "extensions": ["pdf"]
+        },
+        {
+            "type": "text",
+            "extensions": ["txt"]
+        },
+        {
+            "type": "image",
+            "extensions": ["png", "jpg", "jpeg", "gif", "bmp", "webp", "svg"]
+        }
+    ],
+    "colors": {
+        "text": "#555F65",
+        "secondaryText": "#A3A9AE",
+        "tertiaryText": "#657077",
+        "contrastText": "#333333",
+        "background": "#FFFFFF",
+        "contrastBackground": "#F8F9F9",
+        "border": "#ECEEF1",
+        "shadow": "#040F1B14",
+        "dark_text": "#ADADAD",
+        "dark_secondaryText": "#5C5C5C",
+        "dark_tertiaryText": "#858585",
+        "dark_contrastText": "#FFFFFF",
+        "dark_background": "#333333",
+        "dark_contrastBackground": "#3D3D3D",
+        "dark_border": "#474747",
+        "dark_shadow": "#040F1B0A",
+        "blue": "#5299E0",
+        "black": "#282828",
+        "grey": "#D0D5DA"
+      }
+}
