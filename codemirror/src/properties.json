@@ -1,0 +1,19 @@
+{
+    "supportedFileExts": [
+        "cpp", "cc", "h", "hpp",
+        "css",
+        "go",
+        "html", "htm",
+        "java", "class",
+        "js", "jsx", "ts", "tsx",
+        "json",
+        "liquid",
+        "php",
+        "py",
+        "rs",
+        "sass", "scss",
+        "sql", "mysql", "pgsql", "postgresql", "sqlite", "db", "mssql", "cql", "plsql", "mariadb",
+        "wast", "wat",
+        "yaml", "yml"
+    ]
+}
