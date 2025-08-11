@@ -22,21 +22,20 @@ import {
   highlightTrailingWhitespaceToggle,
   highlightWhitespaceSetting,
   highlightWhitespaceToggle,
-  themeComboBox,
-  themeSetting,
-  themeOptions,
 } from "./Core";
 import { settingsButtonComponent } from "./Button";
 import codemirror from "../Codemirror";
+import { createSettingsHeader } from "./Utils";
 
 const settingsBox: IBox = {
   displayProp: "flex",
   flexDirection: "column",
   marginProp: "16 0 0 0",
   children: [
-    { component: Components.box, props: themeSetting },
+    createSettingsHeader("General"),
     { component: Components.box, props: highlightWhitespaceSetting },
     { component: Components.box, props: highlightTrailingWhitespaceSetting },
+    createSettingsHeader("HTML"),
     { component: Components.box, props: autoCloseTagsSetting },
   ],
 };
@@ -45,16 +44,8 @@ const codemirrorSettings: ISettings = {
   settings: settingsBox,
   saveButton: settingsButtonComponent,
   onLoad: async () => {
-    themeComboBox.selectedOption = themeOptions.find(
-      (o) => o.key === codemirror.settings.theme
-    ) || {
-      key: "Auto",
-      label: "Auto",
-    };
-    highlightWhitespaceToggle.isChecked =
-      codemirror.settings.highlightWhitespace;
-    highlightTrailingWhitespaceToggle.isChecked =
-      codemirror.settings.highlightTrailingWhitespace;
+    highlightWhitespaceToggle.isChecked = codemirror.settings.highlightWhitespace;
+    highlightTrailingWhitespaceToggle.isChecked = codemirror.settings.highlightTrailingWhitespace;
     autoCloseTagsToggle.isChecked = codemirror.settings.autoCloseTags;
 
     return { settings: settingsBox };

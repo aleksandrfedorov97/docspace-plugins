@@ -20,25 +20,17 @@ import {
   Components,
   IBox,
   IButton,
-  ICheckbox,
   IModalDialog,
   IText,
   ModalDisplayType,
 } from "@onlyoffice/docspace-plugin-sdk";
 
 const unsavedText: IText = {
-  text: "Are you sure that you want to close this file without saving?",
+  text: "Continue without saving?\nYou have made changes in the configuration. If you proceed without saving, those changes will not be applied.",
 };
 
 const intendBox: IBox = {
-  heightProp: "1vh",
-  widthProp: "2vw",
-};
-
-const disableWarningCheckbox: ICheckbox = {
-  label: "Do not show this message again",
-  isChecked: false,
-  onChange: () => {},
+  widthProp: "8px",
 };
 
 const unsavedBody: IBox = {
@@ -48,30 +40,13 @@ const unsavedBody: IBox = {
       component: Components.text,
       props: unsavedText,
     },
-    {
-      component: Components.box,
-      props: intendBox,
-    },
-    {
-      component: Components.checkbox,
-      props: disableWarningCheckbox,
-    },
   ],
 };
 
-export const saveUnsavedButton: IButton = {
-  label: "Save and close",
+const continueButton: IButton = {
+  label: "Continue",
   size: ButtonSize.normal,
   primary: true,
-  withLoadingAfterClick: true,
-  disableWhileRequestRunning: true,
-  scale: true,
-  onClick: () => {},
-};
-
-const closeButton: IButton = {
-  label: "Close without saving",
-  size: ButtonSize.normal,
   withLoadingAfterClick: true,
   disableWhileRequestRunning: true,
   scale: true,
@@ -82,6 +57,15 @@ const closeButton: IButton = {
   },
 };
 
+export const reopenButton: IButton = {
+  label: "Cancel",
+  size: ButtonSize.normal,
+  withLoadingAfterClick: true,
+  disableWhileRequestRunning: true,
+  scale: true,
+  onClick: () => {},
+};
+
 const unsavedFooter: IBox = {
   displayProp: "flex",
   flexDirection: "row",
@@ -89,7 +73,7 @@ const unsavedFooter: IBox = {
   children: [
     {
       component: Components.button,
-      props: saveUnsavedButton,
+      props: continueButton,
     },
     {
       component: Components.box,
@@ -97,14 +81,14 @@ const unsavedFooter: IBox = {
     },
     {
       component: Components.button,
-      props: closeButton,
+      props: reopenButton,
     },
   ],
 };
 
 export const unsavedModalDialog: IModalDialog = {
   displayType: ModalDisplayType.modal,
-  dialogHeader: "File has some unsaved changes",
+  dialogHeader: "Warning",
   dialogBody: unsavedBody,
   dialogFooter: unsavedFooter,
   onLoad: async () => {

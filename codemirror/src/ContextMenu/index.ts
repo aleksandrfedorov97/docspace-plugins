@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  Devices,
-  FilesType,
-  IContextMenuItem,
-  Security,
-} from "@onlyoffice/docspace-plugin-sdk";
+import { Devices, FilesType, IContextMenuItem, Security } from "@onlyoffice/docspace-plugin-sdk";
 import codemirror from "../Codemirror";
 import { supportedFileExts } from "../properties.json";
 

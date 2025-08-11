@@ -43,7 +43,6 @@ export function updatePropsWithButton(props: IToggleButton | IComboBox) {
   return message;
 }
 
-// TODO: delete if not used
 export function createSettingsHeader(title: string): Component {
   const header: IBox = {
     marginProp: "6px 0 12px 0",
@@ -64,11 +63,7 @@ export function createSettingsHeader(title: string): Component {
   return { component: Components.box, props: header };
 }
 
-export function createToggleSetting(
-  title: string,
-  description: string,
-  toggle: IToggleButton
-) {
+export function createToggleSetting(title: string, description: string, toggle: IToggleButton) {
   const setting: IBox = {
     displayProp: "flex",
     flexDirection: "column",
@@ -111,31 +106,5 @@ export function createToggleSetting(
       },
     ],
   };
-  return setting;
-}
-
-export function createComboBoxSetting(title: string, comboBox: IComboBox) {
-  const setting: IBox = {
-    displayProp: "flex",
-    flexDirection: "column",
-    marginProp: "0 12px 12px",
-    children: [
-      {
-        component: Components.text,
-        props: {
-          text: title,
-          fontWeight: 600,
-          fontSize: "16px",
-          lineHeight: "22px",
-          noSelect: true,
-        },
-      },
-      {
-        component: Components.comboBox,
-        props: comboBox,
-      },
-    ],
-  };
-
   return setting;
 }

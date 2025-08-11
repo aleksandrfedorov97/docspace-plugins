@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  Actions,
-  IMainButtonItem,
-  IMessage,
-  ToastType,
-} from "@onlyoffice/docspace-plugin-sdk";
+import { Actions, IMainButtonItem, IMessage, ToastType } from "@onlyoffice/docspace-plugin-sdk";
 import { supportedFileExts } from "../properties.json";
 import codemirror from "../Codemirror";
 
@@ -63,16 +58,12 @@ const codemirrorMainButtonItem: IMainButtonItem = {
           }
 
           if (!supportedFileExts.includes(value.split(".").pop()!)) {
-            return createErrorToast(
-              "File extension not supported by Codemirror plugin"
-            );
+            return createErrorToast("File extension not supported by Codemirror plugin");
           }
 
           const fileID = await codemirror.createNewFile(value);
           if (typeof fileID === "object") {
-            return createErrorToast(
-              `File "${value}.md" was not created: ${fileID.message}`
-            );
+            return createErrorToast(`File "${value}.md" was not created: ${fileID.message}`);
           }
 
           const message = await codemirror.openFile(fileID);

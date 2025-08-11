@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { IFileItem, File, Devices } from "@onlyoffice/docspace-plugin-sdk";
+import { IFileItem, File } from "@onlyoffice/docspace-plugin-sdk";
 import codemirror from "../Codemirror";
 import { supportedFileExts } from "../properties.json";
 
@@ -27,9 +27,8 @@ for (const ext of supportedFileExts) {
   codemirrorItems.push({
     extension: "." + ext,
     fileTypeName: "Code",
-    fileRowIcon: `${ext}-32.svg`,
-    fileTileIcon: `${ext}-32.svg`,
-    // devices: [Devices.desktop], TODO: [DS] too big buttons in horizontal mobile view
+    fileRowIcon: `codemirror.svg`,
+    fileTileIcon: `codemirror.svg`,
     onClick,
   });
 }

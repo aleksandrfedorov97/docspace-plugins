@@ -129,19 +129,9 @@ class Codemirror
 
   setAdminPluginSettingsValue = (settings: string | null): void => {
     if (settings) {
-      const {
-        theme,
-        highlightWhitespace,
-        highlightTrailingWhitespace,
-        autoCloseTags,
-      } = JSON.parse(settings);
+      const { highlightWhitespace, highlightTrailingWhitespace, autoCloseTags } = JSON.parse(settings);
 
-      codemirror.setSettings(
-        theme,
-        highlightWhitespace,
-        highlightTrailingWhitespace,
-        autoCloseTags
-      );
+      codemirror.setSettings(highlightWhitespace, highlightTrailingWhitespace, autoCloseTags);
     }
   };
 

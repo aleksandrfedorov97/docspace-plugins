@@ -15,22 +15,17 @@
  */
 
 import plugin from ".";
-import {
-  Actions,
-  IToast,
-  ToastType,
-  IMessage,
-} from "@onlyoffice/docspace-plugin-sdk";
-import { unsavedModalDialog, saveUnsavedButton } from "./Dialog/Unsaved";
-import { codemirrorModalDialogProps, codemirrorBox } from "./Dialog";
+import { Actions, IToast, ToastType, IMessage } from "@onlyoffice/docspace-plugin-sdk";
+import { unsavedModalDialog, reopenButton } from "./Dialog/Unsaved";
+import { codemirrorModalDialogProps, saveButton, cancelButton, footerBox } from "./Dialog";
 import { getExtensions } from "./Extensions";
-import { oneDark } from "@codemirror/theme-one-dark";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "codemirror";
-import { supportedFileExts } from "./properties.json";
+import { docSpaceTheme } from "./Extensions";
+import { getCodemirrorBody } from "./Utils";
 
 // TODO: [DS] html creates with corrupted data + cant open after close
-// TODO: ?add XML
+// TODO: add XML
 
 class Codemirror {
   view: EditorView | null = null;
@@ -41,32 +36,23 @@ class Codemirror {
   saveRequestRunning: boolean = false;
 
   settings = {
-    theme: "Auto",
     highlightWhitespace: false,
     highlightTrailingWhitespace: false,
     autoCloseTags: true,
   };
 
   setSettings = (
-    theme: string | null,
     highlightWhitespace: boolean | null,
     highlightTrailingWhitespace: boolean | null,
     autoCloseTags: boolean | null
   ) => {
-    theme !== null && this.setTheme(theme);
-    highlightWhitespace !== null &&
-      this.setHighlightWhitespace(highlightWhitespace);
-    highlightTrailingWhitespace !== null &&
-      this.setHighlightTrailingWhitespace(highlightTrailingWhitespace);
+    highlightWhitespace !== null && this.setHighlightWhitespace(highlightWhitespace);
+    highlightTrailingWhitespace !== null && this.setHighlightTrailingWhitespace(highlightTrailingWhitespace);
     autoCloseTags !== null && this.setAutoCloseTags(autoCloseTags);
   };
 
   getSettings = () => {
     return JSON.stringify(this.settings);
-  };
-
-  setTheme = (theme: string) => {
-    this.settings.theme = theme;
   };
 
   setHighlightTrailingWhitespace = (highlightTrailingWhitespace: boolean) => {
@@ -93,8 +79,7 @@ class Codemirror {
         if (!part) return;
         const newPart = part.trim().replace(/^\/+/, "");
         this.apiURL += newPart
-          ? this.apiURL.length > 0 &&
-            this.apiURL[this.apiURL.length - 1] === "/"
+          ? this.apiURL.length > 0 && this.apiURL[this.apiURL.length - 1] === "/"
             ? newPart
             : `/${newPart}`
           : "";
@@ -127,22 +112,19 @@ class Codemirror {
     formData.append("file", file);
 
     try {
-      const sessionRes = await fetch(
-        `${this.apiURL}/files/${this.currentFolderId}/upload/create_session`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify({
-            createOn: new Date(),
-            fileName: value,
-            fileSize: file.size,
-            relativePath: "",
-            CreateNewIfExist: true,
-          }),
-        }
-      );
+      const sessionRes = await fetch(`${this.apiURL}/files/${this.currentFolderId}/upload/create_session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+          createOn: new Date(),
+          fileName: value,
+          fileSize: file.size,
+          relativePath: "",
+          CreateNewIfExist: true,
+        }),
+      });
 
       const sessionData = (await sessionRes.json()).response.data;
 
@@ -169,30 +151,12 @@ class Codemirror {
     let file = id;
 
     if (!id.fileExst) {
-      file = (
-        await (await fetch(`${this.apiURL}/files/file/${id.id || id}`)).json()
-      ).response;
+      file = (await (await fetch(`${this.apiURL}/files/file/${id.id || id}`)).json()).response;
     }
 
-    const userRes = (await (await fetch(`${this.apiURL}/people/@self`)).json())
-      .response;
+    const userRes = (await (await fetch(`${this.apiURL}/people/@self`)).json()).response;
 
-    let { theme } = userRes;
-    theme = this.settings.theme === "Auto" ? theme : this.settings.theme;
-    switch (theme) {
-      case "System":
-        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? [oneDark]
-          : [];
-        break;
-      case "Dark":
-        theme = [oneDark];
-        break;
-      case "Base":
-      default:
-        theme = [];
-        break;
-    }
+    const theme = docSpaceTheme(userRes.theme);
 
     const { access, security, title } = file;
 
@@ -209,12 +173,7 @@ class Codemirror {
     }
 
     const showSaveButton =
-      security?.Edit ||
-      access === 0 ||
-      access === 1 ||
-      access === 9 ||
-      access === 10 ||
-      access === 11;
+      security?.Edit || access === 0 || access === 1 || access === 9 || access === 10 || access === 11;
 
     this.currentFileId = file.id;
 
@@ -223,9 +182,7 @@ class Codemirror {
     if (data.status !== 200) {
       return {
         actions: [Actions.showToast],
-        toastProps: [
-          { type: ToastType.error, title: "Can't read this file" } as IToast,
-        ],
+        toastProps: [{ type: ToastType.error, title: "Can't read this file" } as IToast],
       };
     }
 
@@ -240,14 +197,10 @@ class Codemirror {
       const success = await this.savefile();
       switch (success) {
         case true:
-          message.toastProps = [
-            { type: ToastType.success, title: "File saved" },
-          ];
+          message.toastProps = [{ type: ToastType.success, title: "File saved" }];
           break;
         case false:
-          message.toastProps = [
-            { type: ToastType.error, title: "Failed to save file" },
-          ];
+          message.toastProps = [{ type: ToastType.error, title: "Failed to save file" }];
           break;
         case undefined:
           message.actions = [];
@@ -262,9 +215,13 @@ class Codemirror {
         message.actions = [Actions.closeModal];
         if (this.view?.state.doc.toString() !== this.currentFileData) {
           message.actions.push(Actions.showModal);
-          saveUnsavedButton.onClick = async () => {
-            const message = await onSave();
-            message.actions?.push(Actions.closeModal);
+          reopenButton.onClick = async () => {
+            const message: IMessage = {
+              actions: [Actions.closeModal, Actions.showModal],
+              modalDialogProps: codemirrorModalDialogProps,
+            };
+
+            this.openCodemirror(this.view!.state.doc.toString(), file.fileExst, showSaveButton, theme);
             return message;
           };
           message.modalDialogProps = unsavedModalDialog;
@@ -273,47 +230,38 @@ class Codemirror {
       return message;
     };
 
-    codemirrorModalDialogProps.dialogBody = codemirrorBox(
-      title,
-      showSaveButton,
-      onSave,
-      onClose,
-      theme
-    );
+    saveButton.onClick = onSave;
+    cancelButton.onClick = onClose;
     codemirrorModalDialogProps.onClose = onClose;
+    codemirrorModalDialogProps.dialogHeader = title;
+    codemirrorModalDialogProps.dialogFooter = showSaveButton ? footerBox : undefined;
 
     const message: IMessage = {
       actions: [Actions.showModal],
       modalDialogProps: codemirrorModalDialogProps,
     };
 
-    // TODO: ?add and ask angular vue and jinja (if on in settings HTML selection)
-    // TODO: ?ask sql dialect (if on in settings SQL selection)
-
-    this.openCodemirror(file.fileExst, showSaveButton, theme);
+    this.openCodemirror(this.currentFileData, file.fileExst, showSaveButton, theme);
     return message;
   };
 
-  openCodemirror = (fileExt: string, editor: boolean, theme: any[]) => {
-    const iFrame = window.parent.document.getElementById(
-      "codemirror-plugin-iframe"
-    ) as HTMLIFrameElement;
+  openCodemirror = (data: string, fileExt: string, isEditor: boolean, theme: any[]) => {
+    const iFrame = window.parent.document.getElementById("codemirror-plugin-iframe") as HTMLIFrameElement;
     if (!iFrame) {
       setTimeout(() => {
-        this.openCodemirror(fileExt, editor, theme);
+        this.openCodemirror(data, fileExt, isEditor, theme);
       }, 50);
       return;
     }
 
-    const body = iFrame.contentWindow?.document.body as HTMLBodyElement;
-    body.style.margin = "0";
+    const body = getCodemirrorBody(iFrame, theme);
 
     const extensions = getExtensions(fileExt.replace(".", ""), this.settings);
 
     this.view = new EditorView({
       parent: body,
-      doc: this.currentFileData,
-      extensions: [...extensions, ...theme, EditorState.readOnly.of(!editor)],
+      doc: data,
+      extensions: [...extensions, ...theme, EditorState.readOnly.of(!isEditor)],
     });
   };
 

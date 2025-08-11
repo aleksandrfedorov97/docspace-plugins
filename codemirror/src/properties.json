@@ -15,5 +15,197 @@
         "sql", "mysql", "pgsql", "postgresql", "sqlite", "db", "mssql", "cql", "plsql", "mariadb",
         "wast", "wat",
         "yaml", "yml"
+    ],
+    "keymaps": [
+        {
+            "action": "Move cursor left by syntax",
+            "mac": "Ctrl + ←",
+            "win": "Alt + ←"
+        },
+        {
+            "action": "Move cursor right by syntax unit",
+            "mac": "Ctrl + →",
+            "win": "Alt + →"
+        },
+        {
+            "action": "Move line up",
+            "mac": "Alt + ↑",
+            "win": "Alt + ↑"
+        },
+        {
+            "action": "Move line down",
+            "mac": "Alt + ↓",
+            "win": "Alt + ↓"
+        },
+        {
+            "action": "Copy line up",
+            "mac": "Shift + Alt + ↑",
+            "win": "Shift + Alt + ↑"
+        },
+        {
+            "action": "Copy line down",
+            "mac": "Shift + Alt + ↓",
+            "win": "Shift + Alt + ↓"
+        },
+        {
+            "action": "Simplify selection",
+            "mac": "Esc",
+            "win": "Esc"
+        },
+        {
+            "action": "Insert blank line",
+            "mac": "⌘ + Enter",
+            "win": "Ctrl + Enter"
+        },
+        {
+            "action": "Select line",
+            "mac": "Ctrl + l",
+            "win": "Alt + l"
+        },
+        {
+            "action": "Select parent syntax",
+            "mac": "⌘ + i",
+            "win": "Ctrl + i"
+        },
+        {
+            "action": "Indent less",
+            "mac": "⌘ + [",
+            "win": "Ctrl + ["
+        },
+        {
+            "action": "Indent more",
+            "mac": "⌘ + ]",
+            "win": "Ctrl + ]"
+        },
+        {
+            "action": "Indent selection",
+            "mac": "⌘ + Alt + \\",
+            "win": "Ctrl + Alt + \\"
+        },
+        {
+            "action": "Delete line",
+            "mac": "⌘ + Shift + k",
+            "win": "Ctrl + Shift + k"
+        },
+        {
+            "action": "Go to matching bracket",
+            "mac": "⌘ + Shift + \\",
+            "win": "Ctrl + Shift + \\"
+        },
+        {
+            "action": "Toggle comment",
+            "mac": "⌘ + /",
+            "win": "Ctrl + /"
+        },
+        {
+            "action": "Toggle block comment",
+            "mac": "Alt + Shift + a",
+            "win": "Alt + Shift + a"
+        },
+        {
+            "action": "Toggle tab focus mode",
+            "mac": "Alt + Shift + m",
+            "win": "Ctrl + m"
+        },
+        {
+            "action": "Open search panel",
+            "mac": "⌘ + f",
+            "win": "Ctrl + f"
+        },
+        {
+            "action": "Find next",
+            "mac": "⌘ + g",
+            "win": "Ctrl + g"
+        },
+        {
+            "action": "Find previous",
+            "mac": "⌘ + Shift + g",
+            "win": "Ctrl + Shift + g"
+        },
+        {
+            "action": "Go to line",
+            "mac": "⌘ + Alt + g",
+            "win": "Ctrl + Alt + g"
+        },
+        {
+            "action": "Select next occurrence",
+            "mac": "⌘ + d",
+            "win": "Ctrl + d"
+        },
+        {
+            "action": "Undo",
+            "mac": "⌘ + z",
+            "win": "Ctrl + z"
+        },
+        {
+            "action": "Redo",
+            "mac": "⌘ + Shift + z",
+            "win": "Ctrl + y"
+        },
+        {
+            "action": "Undo selection",
+            "mac": "⌘ + u",
+            "win": "Ctrl + u"
+        },
+        {
+            "action": "Redo selection",
+            "mac": "⌘ + Shift + u",
+            "win": "Alt + u"
+        },
+        {
+            "action": "Fold code",
+            "mac": "⌘ + Alt + [",
+            "win": "Ctrl + Shift + ["
+        },
+        {
+            "action": "Unfold code",
+            "mac": "⌘ + Alt + ]",
+            "win": "Ctrl + Shift + ]"
+        },
+        {
+            "action": "Fold all",
+            "mac": "Ctrl + Alt + [",
+            "win": "Ctrl + Alt + ["
+        },
+        {
+            "action": "Unfold all",
+            "mac": "Ctrl + Alt + ]",
+            "win": "Ctrl + Alt + ]"
+        },
+        {
+            "action": "Start completion",
+            "mac": "Alt + `",
+            "win": "Ctrl + Space"
+        },
+        {
+            "action": "Close completion",
+            "mac": "Esc",
+            "win": "Esc"
+        },
+        {
+            "action": "Move completion selection down",
+            "mac": "↓",
+            "win": "↓"
+        },
+        {
+            "action": "Move completion selection up",
+            "mac": "↑",
+            "win": "↑"
+        },
+        {
+            "action": "Page down in completion",
+            "mac": "PageDown",
+            "win": "PageDown"
+        },
+        {
+            "action": "Page up in completion",
+            "mac": "PageUp",
+            "win": "PageUp"
+        },
+        {
+            "action": "Accept completion",
+            "mac": "Enter",
+            "win": "Enter"
+        }
     ]
 }

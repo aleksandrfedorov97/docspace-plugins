@@ -46,7 +46,10 @@
     "@onlyoffice/docspace-plugin-sdk": "^1.1.1",
     "codemirror": "^6.0.2"
   },
-  "description": "TODO: descr",
+  "scpDomains": [
+    "https://fonts.googleapis.com/"
+  ],
+  "description": "TODO: description",
   "pluginName": "Codemirror",
   "license": "MIT",
   "logo": "logo.svg",

@@ -14,43 +14,9 @@
  * limitations under the License.
  */
 
-import {
-  IToggleButton,
-  IComboBox,
-  IComboBoxItem,
-} from "@onlyoffice/docspace-plugin-sdk";
+import { IToggleButton } from "@onlyoffice/docspace-plugin-sdk";
 import codemirror from "../Codemirror";
-import {
-  createToggleSetting,
-  createComboBoxSetting,
-  updatePropsWithButton,
-} from "./Utils";
-
-export const themeOptions: IComboBoxItem[] = [
-  { key: "Auto", label: "Auto" },
-  { key: "Base", label: "Light" },
-  { key: "Dark", label: "Dark" },
-];
-
-export const themeComboBox: IComboBox = {
-  options: themeOptions,
-  selectedOption: themeOptions.find(
-    (o) => o.key === codemirror.settings.theme
-  ) || {
-    key: "Auto",
-    label: "Auto",
-  },
-  onSelect: (option: IComboBoxItem) => {
-    themeComboBox.selectedOption = option;
-    return updatePropsWithButton(themeComboBox);
-  },
-  scaled: true,
-  dropDownMaxHeight: 400,
-  directionY: "both",
-  scaledOptions: true,
-};
-
-export const themeSetting = createComboBoxSetting("Theme", themeComboBox);
+import { createToggleSetting, updatePropsWithButton } from "./Utils";
 
 export const highlightWhitespaceToggle: IToggleButton = {
   isChecked: codemirror.settings.highlightWhitespace,
@@ -71,8 +37,7 @@ export const highlightTrailingWhitespaceToggle: IToggleButton = {
   isChecked: codemirror.settings.highlightTrailingWhitespace,
   style: { position: "relative", gap: "0px" },
   onChange: () => {
-    highlightTrailingWhitespaceToggle.isChecked =
-      !highlightTrailingWhitespaceToggle.isChecked;
+    highlightTrailingWhitespaceToggle.isChecked = !highlightTrailingWhitespaceToggle.isChecked;
     return updatePropsWithButton(highlightTrailingWhitespaceToggle);
   },
 };

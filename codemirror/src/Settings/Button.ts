@@ -16,7 +16,6 @@
 
 import {
   Actions,
-  BoxGroup,
   ButtonGroup,
   ButtonSize,
   Components,
@@ -25,16 +24,10 @@ import {
   ToastType,
 } from "@onlyoffice/docspace-plugin-sdk";
 import codemirror from "../Codemirror";
-import {
-  autoCloseTagsToggle,
-  highlightTrailingWhitespaceToggle,
-  highlightWhitespaceToggle,
-  themeComboBox,
-} from "./Core";
+import { autoCloseTagsToggle, highlightTrailingWhitespaceToggle, highlightWhitespaceToggle } from "./Core";
 
 const onClick = () => {
   codemirror.setSettings(
-    themeComboBox?.selectedOption?.key,
     highlightWhitespaceToggle?.isChecked,
     highlightTrailingWhitespaceToggle?.isChecked,
     autoCloseTagsToggle?.isChecked

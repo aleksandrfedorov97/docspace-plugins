@@ -15,12 +15,7 @@
  */
 
 import { EditorState, Extension } from "@codemirror/state";
-import {
-  defaultKeymap,
-  history,
-  historyKeymap,
-  indentWithTab,
-} from "@codemirror/commands";
+import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands";
 import { highlightSelectionMatches, searchKeymap } from "@codemirror/search";
 import {
   EditorView,
@@ -42,14 +37,10 @@ import {
   foldKeymap,
   indentOnInput,
   syntaxHighlighting,
+  HighlightStyle,
 } from "@codemirror/language";
-import {
-  closeBrackets,
-  autocompletion,
-  closeBracketsKeymap,
-  completionKeymap,
-} from "@codemirror/autocomplete";
-// import { lintKeymap, linter, lintGutter } from "@codemirror/lint"; // TODO: ?linters only for JS/TS and JSON
+import { tags } from "@lezer/highlight";
+import { closeBrackets, autocompletion, closeBracketsKeymap, completionKeymap } from "@codemirror/autocomplete";
 import { javascript } from "@codemirror/lang-javascript";
 import { css } from "@codemirror/lang-css";
 import { sass } from "@codemirror/lang-sass";
@@ -64,25 +55,124 @@ import { php } from "@codemirror/lang-php";
 import { rust } from "@codemirror/lang-rust";
 import { yaml } from "@codemirror/lang-yaml";
 import { wast } from "@codemirror/lang-wast";
-import {
-  sql,
-  StandardSQL,
-  PostgreSQL,
-  MySQL,
-  MariaSQL,
-  MSSQL,
-  SQLite,
-  Cassandra,
-  PLSQL,
-} from "@codemirror/lang-sql";
+import { sql, StandardSQL, PostgreSQL, MySQL, MariaSQL, MSSQL, SQLite, Cassandra, PLSQL } from "@codemirror/lang-sql";
+import { oneDark } from "@codemirror/theme-one-dark";
 
-const customEditorHeight = EditorView.theme({
-  "&.cm-editor": {
-    height: "100%",
-  },
-});
+export const colors = {
+  base: "#fff",
+  secondary: "#f8f9f9",
+  altSecondary: "#dfe2e3",
+  contrast: "#a3a9ae",
+  border: "#d0d5da",
+  hoverBorder: "#4781d1",
+  dark: "#333333",
+  dark_secondary: "#3d3d3d",
+  dark_altSecondary: "#474747",
+  dark_contrast: "#858585",
+  dark_border: "#474747",
+  dark_hoverBorder: "#a3a3a3",
+};
 
-function langExtension(fileExt: string, settings: any) {
+export const docSpaceTheme = (theme: string) => {
+  if (theme === "System") {
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark" : "Base";
+  }
+  const light = theme === "Base";
+
+  const customTheme = EditorView.theme(
+    {
+      "&": {
+        color: light ? "black" : "white",
+      },
+      "&.cm-editor": {
+        height: "100%",
+      },
+      ".cm-panels": {
+        backgroundColor: light ? colors.base : colors.dark,
+      },
+      ".cm-scroller": {
+        scrollbarColor: `${light ? colors.contrast : colors.dark_contrast} ${light ? colors.base : colors.dark}`,
+        backgroundColor: light ? colors.base : colors.dark,
+      },
+      ".cm-panels.cm-panels-bottom": {
+        borderTop: `1px solid ${light ? colors.border : colors.dark_border}`,
+        color: light ? "black" : "white",
+      },
+      ".cm-button": {
+        padding: "1vh 2vw",
+        fontSize: "80%",
+        fontFamily: "Open Sans, sans-serif",
+        backgroundColor: light ? colors.base : colors.dark,
+        backgroundImage: "none",
+        border: `1px solid ${light ? colors.border : colors.dark_border}`,
+        borderRadius: "3px",
+        cursor: "pointer",
+      },
+      ".cm-button:hover": {
+        borderColor: light ? colors.hoverBorder : colors.dark_hoverBorder,
+      },
+      ".cm-button:active": {
+        backgroundImage: "none",
+        backgroundColor: light ? colors.secondary : "#282828",
+        border: `1px solid ${light ? colors.border : colors.dark_border}`,
+      },
+      ".cm-panel.cm-search input": {
+        padding: "1vh 1vw",
+        fontSize: "80%",
+        fontFamily: "Open Sans, sans-serif",
+        border: `1px solid ${light ? colors.border : colors.dark_border}`,
+        borderRadius: "3px",
+      },
+      ".cm-panel.cm-search input:focus": {
+        outline: `1px solid ${light ? colors.hoverBorder : colors.dark_hoverBorder}`,
+      },
+      ".cm-gutters": {
+        border: "none",
+        color: light ? "black" : "white",
+        backgroundColor: light ? colors.secondary : colors.dark_secondary,
+      },
+      ".cm-activeLineGutter": {
+        backgroundColor: light ? colors.altSecondary : colors.dark_altSecondary,
+      },
+      ".cm-activeLine": {
+        backgroundColor: light ? colors.secondary : colors.dark_secondary,
+      },
+      ".cm-lineNumbers .cm-gutterElement": {
+        padding: "0 3px 0 10px",
+      },
+      ".cm-panel.cm-search [name=close]": {
+        color: light ? colors.contrast : colors.dark_contrast,
+        fontWeight: "900",
+        fontSize: "150%",
+        right: "7px",
+      },
+      ".cm-panel.cm-search label": {
+        display: "inline-flex",
+        fontSize: "90%",
+      },
+      ".cm-tooltip-autocomplete ul li": {
+        backgroundColor: light ? colors.secondary : colors.dark_secondary,
+        color: light ? "black" : colors.dark_contrast,
+      },
+      ".cm-tooltip-autocomplete ul li[aria-selected]": {
+        backgroundColor: light ? colors.hoverBorder : colors.dark_altSecondary,
+        color: "white",
+      },
+      ".cm-panel.cm-search input[type=checkbox]": {
+        accentColor: light ? colors.hoverBorder : "#646464",
+      },
+    },
+    { dark: !light }
+  );
+
+  const customHighlight = HighlightStyle.define([
+    { tag: [tags.definition(tags.name), tags.separator], color: light ? "black" : "white" },
+  ]);
+
+  return [customTheme, ...(light ? [] : [syntaxHighlighting(customHighlight), oneDark])];
+};
+
+function langExtensions(fileExt: string, settings: any) {
   switch (fileExt) {
     case "js":
     case "jsx":
@@ -181,12 +271,10 @@ function coreExtensions(settings: any) {
     autocompletion(),
     syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
     EditorState.allowMultipleSelections.of(true),
-    customEditorHeight,
 
     // EditorState.tabSize.of(), // TODO: [ifbug] tab size = what??
     // EditorState.lineSeparator.of(), // TODO: [ifbug] correct line separator
 
-    // TODO: ?export keymaps to description/settings?
     keymap.of([
       ...defaultKeymap,
       ...closeBracketsKeymap,
@@ -199,12 +287,11 @@ function coreExtensions(settings: any) {
   ];
 
   if (settings.highlightWhitespace) coreExtensions.push(highlightWhitespace());
-  if (settings.highlightTrailingWhitespace)
-    coreExtensions.push(highlightTrailingWhitespace());
+  if (settings.highlightTrailingWhitespace) coreExtensions.push(highlightTrailingWhitespace());
 
   return coreExtensions;
 }
 
 export function getExtensions(fileExt: string, settings: any) {
-  return [...coreExtensions(settings), ...langExtension(fileExt, settings)];
+  return [...coreExtensions(settings), ...langExtensions(fileExt, settings)];
 }

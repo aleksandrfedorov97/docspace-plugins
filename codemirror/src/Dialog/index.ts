@@ -35,18 +35,7 @@ const closeDialog = () => {
   return message;
 };
 
-const titleText: IText = {
-  text: "",
-  isBold: true,
-  fontSize: "2vh",
-  lineHeight: "5vh",
-};
-
-const autoMarginBox: IBox = {
-  marginProp: "auto",
-};
-
-const saveExitButton: IButton = {
+export const saveButton: IButton = {
   label: "Save",
   size: ButtonSize.small,
   primary: true,
@@ -56,28 +45,40 @@ const saveExitButton: IButton = {
 };
 
 const intendBox: IBox = {
-  widthProp: "1vw",
+  widthProp: "8px",
 };
 
-const exitButton: IButton = {
-  label: "Exit",
+export const cancelButton: IButton = {
+  label: "Cancel",
   size: ButtonSize.small,
   onClick: closeDialog,
 };
 
-const headerBox: IBox = {
-  widthProp: "98vw",
-  heightProp: "5vh",
-  paddingProp: "1vh 1vw",
+export const footerBox: IBox = {
+  widthProp: "100%",
+  heightProp: "auto",
   displayProp: "flex",
   flexDirection: "row",
-  borderProp: "1px solid #ddd",
-  children: [],
+  children: [
+    {
+      component: Components.button,
+      props: saveButton,
+    },
+    {
+      component: Components.box,
+      props: intendBox,
+    },
+    {
+      component: Components.button,
+      props: cancelButton,
+    },
+  ],
 };
 
 const iframeBox: IBox = {
-  widthProp: "100%",
-  heightProp: "93vh",
+  widthProp: "93vw",
+  heightProp: "74vh",
+  marginProp: "-16px -15px -8px -16px", // TODO: [DS] ask for no-padding dialog body
   children: [
     {
       component: Components.iFrame,
@@ -92,70 +93,20 @@ const iframeBox: IBox = {
   ],
 };
 
-export const codemirrorBox = (
-  title: string = "",
-  withSaveButton: boolean = true,
-  saveHandler: () => Promise<IMessage> | IMessage | void = () => {},
-  closeHandler: () => Promise<IMessage> | IMessage | void = closeDialog,
-  theme: any[] = []
-): IBox => {
-  return {
-    widthProp: "100%",
-    heightProp: "100%",
-    children: [
-      {
-        component: Components.box,
-        props: {
-          ...headerBox,
-          borderProp: theme.length > 0 ? "none" : "1px solid #ddd",
-          children: [
-            {
-              component: Components.text,
-              props: { ...titleText, text: title },
-            },
-            {
-              component: Components.box,
-              props: autoMarginBox,
-            },
-            ...(withSaveButton
-              ? ([
-                  {
-                    component: Components.button,
-                    props: { ...saveExitButton, onClick: saveHandler },
-                  },
-                  {
-                    component: Components.box,
-                    props: intendBox,
-                  },
-                ] as Component[])
-              : []),
-            {
-              component: Components.button,
-              props: { ...exitButton, onClick: closeHandler },
-            },
-          ],
-        },
-      },
-      {
-        component: Components.box,
-        props: iframeBox,
-      },
-    ],
-  };
-};
-
 export const codemirrorModalDialogProps: IModalDialog = {
   dialogHeader: "",
-  dialogBody: codemirrorBox(),
+  dialogBody: iframeBox,
+  dialogFooter: footerBox,
   displayType: ModalDisplayType.modal,
-  fullScreen: true,
   onClose: closeDialog,
   onLoad: async () => {
     return {
       newDialogHeader: codemirrorModalDialogProps.dialogHeader || "",
       newDialogBody: codemirrorModalDialogProps.dialogBody,
+      newDialogFooter: codemirrorModalDialogProps.dialogFooter,
     };
   },
+  withFooterBorder: true,
   autoMaxHeight: true,
   autoMaxWidth: true,
 };
