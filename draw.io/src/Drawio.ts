@@ -325,7 +325,7 @@ class DrawIo {
 
       this.currentFileId = file.id;
 
-      const data = await fetch(file.viewUrl, {redirect: "manual"});
+      const data = await fetch(file.viewUrl);
 
       if (data.status !== 200) {
         return {
