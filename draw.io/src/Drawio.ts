@@ -105,12 +105,12 @@ class DrawIo {
 
   setAdminSettings = (
     url: string | null,
-    lang: { key: string } | null,
+    lang: string | null,
     off: boolean | null,
     lib: boolean | null
   ) => {
     url && this.setUrl(url);
-    lang?.key && this.setLang(lang?.key);
+    lang && this.setLang(lang);
     off && this.setOff(off);
     lib && this.setLib(lib);
   };

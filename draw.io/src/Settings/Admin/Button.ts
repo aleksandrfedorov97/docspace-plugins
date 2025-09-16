@@ -35,7 +35,7 @@ import { libToggleButtonProps } from "./Lib";
 const onClick = () => {
   drawIo.setAdminSettings(
     urlInput?.value || "",
-    langComboBox?.selectedOption,
+    langComboBox?.selectedOption?.key,
     offToggleButtonProps?.isChecked,
     libToggleButtonProps?.isChecked
   );
