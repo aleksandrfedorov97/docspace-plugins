@@ -2,6 +2,9 @@
   "name": "draw.io",
   "version": "1.1.0",
   "author": "ONLYOFFICE",
+  "bugs": {
+    "email": "support@onlyoffice.com"
+  },
   "main": "index.ts",
   "private": true,
   "scopes": [
