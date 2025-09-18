@@ -1,7 +1,23 @@
 {
   "name": "image-editor",
   "version": "0.0.1",
+  "description": "DocSpace plugin for viewing and editing images",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/image-editor",
   "author": "ONLYOFFICE",
+  "maintainers": [
+    "Ascensio System SIA <integration@onlyoffice.com> (https://www.onlyoffice.com)"
+  ],
+  "bugs": {
+    "email": "support@onlyoffice.com"
+  },
+  "pluginName": "Imageeditor",
+  "logo": "image-editor.svg",
+  "cspDomains": [
+    "https://www.google-analytics.com/",
+    "https://uicdn.toast.com/",
+    "https://cdn.jsdelivr.net/"
+  ],
   "main": "index.ts",
   "private": true,
   "scopes": [
@@ -13,11 +29,6 @@
     "ProfileMenu",
     "EventListener",
     "File"
-  ],
-  "cspDomains": [
-    "https://www.google-analytics.com/",
-    "https://uicdn.toast.com/",
-    "https://cdn.jsdelivr.net/"
   ],
   "scripts": {
     "build": "webpack && node ./scripts/createZip.js",
@@ -33,10 +44,5 @@
   },
   "dependencies": {
     "@onlyoffice/docspace-plugin-sdk": "^1.1.1"
-  },
-  "description": "",
-  "pluginName": "Imageeditor",
-  "license": "MIT",
-  "logo": "image-editor.svg",
-  "homepage": ""
+  }
 }
