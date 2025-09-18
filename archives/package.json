@@ -1,7 +1,21 @@
 {
   "name": "archives",
   "version": "0.0.1",
+  "description": "DocSpace plugin for opening and extracting ZIP archives",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/archives",
   "author": "ONLYOFFICE",
+  "maintainers": [
+    "Ascensio System SIA <integration@onlyoffice.com> (https://www.onlyoffice.com)"
+  ],
+  "bugs": {
+    "email": "support@onlyoffice.com"
+  },
+  "pluginName": "Archives",
+  "logo": "zip.svg",
+  "scpDomains": [
+    "https://fonts.googleapis.com/"
+  ],
   "main": "index.ts",
   "private": true,
   "scopes": [
@@ -29,13 +43,5 @@
   "dependencies": {
     "@onlyoffice/docspace-plugin-sdk": "^1.1.1",
     "fflate": "^0.8.2"
-  },
-  "scpDomains": [
-    "https://fonts.googleapis.com/"
-  ],
-  "description": "",
-  "pluginName": "Archives",
-  "license": "MIT",
-  "logo": "zip.svg",
-  "homepage": ""
+  }
 }
