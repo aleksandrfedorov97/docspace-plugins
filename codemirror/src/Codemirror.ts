@@ -198,6 +198,7 @@ class Codemirror {
       switch (success) {
         case true:
           message.toastProps = [{ type: ToastType.success, title: "File saved" }];
+          this.currentFileData = this.view!.state.doc.toString();
           break;
         case false:
           message.toastProps = [{ type: ToastType.error, title: "Failed to save file" }];
