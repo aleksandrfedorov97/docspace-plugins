@@ -1,3 +1,19 @@
+/*
+ * (c) Copyright Ascensio System SIA 2025
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { FileTreeItem } from "../Archives";
 import { addStyles } from "./Styles";
 import { fileTypes } from "../properties.json";
@@ -73,11 +89,20 @@ export function viewer(iframe: HTMLIFrameElement, root: FileTreeItem[], fileName
 }
 
 export async function selector(
+  iframe: HTMLIFrameElement,
   body: HTMLElement,
   path: { title: string; id: number | undefined }[],
   content: FileTreeItem[],
-  buttons?: boolean // TODO: [temp]
+  buttons?: boolean, // TODO: [temp]
+  dark?: boolean
 ) {
+  if (!body) {
+    body = iframe.contentWindow!.document.body;
+    addStyles(iframe, dark!);
+    selector(iframe, body, path, content, buttons);
+    return;
+  }
+
   body.innerHTML = ""; // TODO: clean only body in separate selector
 
   const selectorHeader = body.ownerDocument.createElement("div");
@@ -85,7 +110,7 @@ export async function selector(
   const docSpaceFolder = body.ownerDocument.createElement("div");
   docSpaceFolder.innerHTML = "DocSpace";
   docSpaceFolder.onclick = () => {
-    selector(body, [], content, buttons);
+    selector(iframe, body, [], content, buttons);
   };
   selectorHeader.appendChild(docSpaceFolder);
 
@@ -104,7 +129,7 @@ export async function selector(
     text.className = "selector-folder-title";
     text.innerText = title;
     text.onclick = () => {
-      selector(body, [...path, { title: title, id: id }], content, buttons);
+      selector(iframe, body, [...path, { title: title, id: id }], content, buttons);
     };
 
     const folder = body.ownerDocument.createElement("div");
@@ -128,7 +153,8 @@ export async function selector(
     addSelectorFolder("My documents", "my-documents", 1);
     addSelectorFolder("Rooms", "rooms");
   } else {
-    const currentFolder = await archives.getFolder(path[path.length - 1].id);
+    archives.destinationFolderId = path[path.length - 1].id;
+    const currentFolder = await archives.getFolder(archives.destinationFolderId);
     let startIndex = 0;
 
     if (path.length > 2) {
@@ -149,7 +175,7 @@ export async function selector(
         folder.classList.add("current-folder");
       } else {
         folder.onclick = () => {
-          selector(body, path.slice(0, i + 1), content, buttons);
+          selector(iframe, body, path.slice(0, i + 1), content, buttons);
         };
       }
 
@@ -162,6 +188,8 @@ export async function selector(
   }
 
   // TODO: [temp]
+  if (!buttons) return;
+
   const footer = body.ownerDocument.createElement("div");
   footer.id = "temp-footer";
   const extractButton = body.ownerDocument.createElement("div");
@@ -360,7 +388,7 @@ function createExplorerHeader(header: HTMLElement) {
     const hiddenSelector = current.iframe!.contentDocument!.querySelector("#selector") as HTMLDivElement;
     viewer.style.display = "none";
     hiddenSelector.style.display = "flex";
-    selector(hiddenSelector, [], content, true);
+    selector(current.iframe!, hiddenSelector, [], content, true);
   };
   extractHeader.appendChild(extractButton);
 
@@ -416,7 +444,7 @@ function addExplorerElements(explorerBody: HTMLElement) {
 
       viewer.style.display = "none";
       hiddenSelector.style.display = "flex";
-      selector(hiddenSelector, [], [f], true);
+      selector(current.iframe!, hiddenSelector, [], [f], true);
     };
 
     element.appendChild(iconBox);

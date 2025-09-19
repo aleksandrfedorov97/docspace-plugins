@@ -1,20 +1,31 @@
-import { Actions, Components, IMessage, IToast, ToastType } from "@onlyoffice/docspace-plugin-sdk";
+/*
+ * (c) Copyright Ascensio System SIA 2025
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Actions, IMessage, IToast, ToastType } from "@onlyoffice/docspace-plugin-sdk";
 import plugin from ".";
 import * as fflate from "fflate";
 import { modalDialogProps, frameProps, extractButton } from "./ModalDialog";
-import { drawInIframe, loader, viewer } from "./ModalDialog/Viewer";
+import { drawInIframe, loader, viewer, selector } from "./ModalDialog/Viewer";
+import { selectorFrame, selectorProps, unzipButton } from "./ModalDialog/Selector";
 
 class Archives {
   apiURL: string = "";
-  currentFolderId: number | null = null;
-  saveRequestRunning: boolean = false;
-  currentFileId: number | null = null;
-  archiveBuffer: fflate.Zippable = {};
   root: FileTreeItem[] = [];
-
-  setCurrentFolderId = (id: number | null) => {
-    this.currentFolderId = id;
-  };
+  archiveBuffer: fflate.Zippable = {};
+  destinationFolderId: number | undefined = undefined;
 
   createAPIUrl = () => {
     const api = plugin.getAPI();
@@ -36,55 +47,20 @@ class Archives {
     }
   };
 
-  setAPIUrl = (url: string) => {
-    this.apiURL = url;
-  };
-
-  getAPIUrl = () => {
-    return this.apiURL;
-  };
-
   openZip = async (id: File | any) => {
-    if (!this.apiURL) this.createAPIUrl();
+    const file = await this.getFile(id);
+    const user = await this.getUser();
 
-    let file = id;
-
-    if (!id.fileExst) {
-      file = (await (await fetch(`${this.apiURL}/files/file/${id}`)).json()).response;
-    }
-
-    const userRes = (await (await fetch(`${this.apiURL}/people/@self`)).json()).response;
-    var { theme } = userRes;
-    if (theme === "System") theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark" : "Base";
-
-    const { access, security } = file;
-
-    if (!security?.Download) {
+    if (!file.security?.Download) {
       return {
         actions: [Actions.showToast],
         toastProps: [{ type: ToastType.error, title: "You don't have permission to view this file" } as IToast],
       };
     }
 
-    // TODO: showSaveButton?
-
-    this.currentFileId = file.id;
-
-    fetch(file.viewUrl)
-      .then((data) => {
-        if (data.status !== 200) {
-          // TODO: error to dialog
-        }
-        return data.arrayBuffer();
-      })
-      .then((dataArrayBuffer) => {
-        const dataUint8Array = new Uint8Array(dataArrayBuffer);
-        fflate.unzip(dataUint8Array, (err, unzipped) => {
-          if (err) console.log(err);
-          this.root = buildFileTree(unzipped);
-          drawInIframe(frameProps.id!, viewer, this.root, file.title, theme === "Dark");
-        });
-      });
+    this.getContent(file.viewUrl, () => {
+      drawInIframe(frameProps.id!, viewer, this.root, file.title, user.theme === "Dark");
+    });
 
     extractButton.onClick = async () => {
       await this.unzip(file.folderId, this.root, file.title.split(".").slice(0, -1).join("."));
@@ -103,8 +79,50 @@ class Archives {
     return message;
   };
 
-  unzip = async (folderId: number, content: FileTreeItem[], wrapperFolder?: string) => {
-    const createFolder = async (f: FileTreeItem) => {
+  openSelector = async (id: File | any, content?: FileTreeItem[], dark?: boolean) => {
+    const message: IMessage = {
+      actions: [Actions.showModal],
+      modalDialogProps: selectorProps,
+    };
+
+    if (!content) {
+      const file = await this.getFile(id);
+      const user = await this.getUser();
+
+      if (!file.security?.Download) {
+        return {
+          actions: [Actions.showToast],
+          toastProps: [{ type: ToastType.error, title: "You don't have permission to unzip this file" } as IToast],
+        };
+      }
+
+      this.getContent(file.viewUrl, () => {
+        drawInIframe(selectorFrame.id!, selector, null, [], this.root, false, user.theme === "Dark");
+      });
+
+      unzipButton.onClick = async () => {
+        if (!this.destinationFolderId) return {};
+
+        const msg = await this.unzip(
+          this.destinationFolderId!,
+          this.root,
+          file.title.split(".").slice(0, -1).join(".")
+        );
+        msg.actions!.push(Actions.closeModal);
+
+        return msg;
+      };
+
+      drawInIframe(selectorFrame.id!, loader);
+    } else {
+      // TODO: open with content and dark
+    }
+
+    return message;
+  };
+
+  unzip = async (folderId: File | number | any, content?: FileTreeItem[], wrapperFolder?: string) => {
+    const createFolder = async (f: FileTreeItem): Promise<IMessage> => {
       const folderRes = await fetch(`${this.apiURL}/files/folder/${folderId}`, {
         method: "POST",
         headers: {
@@ -117,15 +135,29 @@ class Archives {
 
       const fId = (await folderRes.json()).response.id;
 
-      await this.unzip(fId, f.content as FileTreeItem[]);
+      return await this.unzip(fId, f.content as FileTreeItem[]);
     };
 
-    if (wrapperFolder) {
-      await createFolder({ type: "folder", title: wrapperFolder, content: content });
-      return;
+    if (!content) {
+      const file = await this.getFile(folderId);
+
+      if (!file.security?.Download) {
+        return {
+          actions: [Actions.showToast],
+          toastProps: [{ type: ToastType.error, title: "You don't have permission to unzip this file" } as IToast],
+        } as IMessage;
+      }
+
+      folderId = file.folderId;
+      wrapperFolder = file.title.split(".").slice(0, -1).join(".");
+      content = await this.getContent(file.viewUrl);
     }
 
-    for (const f of content) {
+    if (wrapperFolder) {
+      return await createFolder({ type: "folder", title: wrapperFolder, content: content! });
+    }
+
+    for (const f of content!) {
       if (f.type === "file") {
         const blob = new Blob([f.content as Uint8Array]);
         const file = new File([blob], `blob`, {
@@ -162,6 +194,11 @@ class Archives {
         await createFolder(f);
       }
     }
+
+    return {
+      actions: [Actions.showToast],
+      toastProps: [{ type: ToastType.success, title: "File unziped successfully" } as IToast],
+    } as IMessage;
   };
 
   zipFolder = async (id: number) => {
@@ -218,6 +255,25 @@ class Archives {
     return message;
   };
 
+  getContent = async (url: string, callback?: () => any) => {
+    return fetch(url)
+      .then((data) => {
+        if (data.status !== 200) {
+          throw new Error("Failed to fetch file");
+        }
+        return data.arrayBuffer();
+      })
+      .then((dataArrayBuffer) => {
+        const dataUint8Array = new Uint8Array(dataArrayBuffer);
+        const unzipped = fflate.unzipSync(dataUint8Array);
+        this.root = buildFileTree(unzipped);
+
+        if (callback) callback();
+
+        return this.root;
+      });
+  };
+
   fetchContent = async (id: number, path: string = "") => {
     const folder = await this.getFolder(id);
     if (path !== "") {
@@ -249,8 +305,32 @@ class Archives {
     return folder;
   };
 
+  getFile = async (id: File | any) => {
+    if (!this.apiURL) this.createAPIUrl();
+
+    let file = id;
+
+    if (!id.fileExst) {
+      file = (await (await fetch(`${this.apiURL}/files/file/${id}`)).json()).response;
+    }
+
+    return file;
+  };
+
   getFolder = async (id?: number) => {
+    if (!this.apiURL) this.createAPIUrl();
+
     return (await (await fetch(`${this.apiURL}/files/${id ? id : "rooms"}`)).json()).response;
+  };
+
+  getUser = async () => {
+    if (!this.apiURL) this.createAPIUrl();
+
+    const userRes = (await (await fetch(`${this.apiURL}/people/@self`)).json()).response;
+    if (userRes.theme === "System") {
+      userRes.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark" : "Base";
+    }
+    return userRes;
   };
 }
 

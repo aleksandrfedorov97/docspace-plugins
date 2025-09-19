@@ -26,7 +26,7 @@ import {
   ModalDisplayType,
 } from "@onlyoffice/docspace-plugin-sdk";
 
-export const frameProps: IFrame = {
+export const selectorFrame: IFrame = {
   width: "100%",
   height: "100%",
   name: "archives-iframe",
@@ -35,19 +35,18 @@ export const frameProps: IFrame = {
 };
 
 const iframeBox: IBox = {
-  widthProp: "800px",
-  heightProp: "60vh",
-  marginProp: "-16px -15px -8px -16px",
+  widthProp: "100%",
+  heightProp: "100%",
   children: [
     {
       component: Components.iFrame,
-      props: frameProps,
+      props: selectorFrame,
     },
   ],
 };
 
-export const extractButton: IButton = {
-  label: "Extract the archive",
+export const unzipButton: IButton = {
+  label: "Unzip here",
   size: ButtonSize.small,
   primary: true,
   withLoadingAfterClick: true,
@@ -69,13 +68,13 @@ const cancelButton: IButton = {
   },
 };
 
-const footerBox: IBox = {
+const selectorFooter: IBox = {
   displayProp: "flex",
   flexDirection: "row",
   children: [
     {
       component: Components.button,
-      props: extractButton,
+      props: unzipButton,
     },
     {
       component: Components.box,
@@ -88,11 +87,11 @@ const footerBox: IBox = {
   ],
 };
 
-export const modalDialogProps: IModalDialog = {
-  dialogHeader: "Archive viewer",
+export const selectorProps: IModalDialog = {
+  dialogHeader: "Unzip to",
   dialogBody: iframeBox,
-  dialogFooter: footerBox,
-  displayType: ModalDisplayType.modal,
+  dialogFooter: selectorFooter,
+  displayType: ModalDisplayType.aside,
   fullScreen: false,
   onClose: () => {
     const message: IMessage = {
@@ -103,11 +102,13 @@ export const modalDialogProps: IModalDialog = {
   },
   onLoad: async () => {
     return {
-      newDialogHeader: modalDialogProps.dialogHeader || "",
-      newDialogBody: modalDialogProps.dialogBody,
-      newDialogFooter: modalDialogProps.dialogFooter,
+      newDialogHeader: selectorProps.dialogHeader || "",
+      newDialogBody: selectorProps.dialogBody,
+      newDialogFooter: selectorProps.dialogFooter,
     };
   },
+  withoutBodyPadding: true,
+  withoutHeaderMargin: true,
   autoMaxHeight: true,
   autoMaxWidth: true,
 };
