@@ -317,7 +317,7 @@ class Archives {
     return file;
   };
 
-  getFolder = async (id?: number) => {
+  getFolder = async (id?: number | string) => {
     if (!this.apiURL) this.createAPIUrl();
 
     return (await (await fetch(`${this.apiURL}/files/${id ? id : "rooms"}`)).json()).response;

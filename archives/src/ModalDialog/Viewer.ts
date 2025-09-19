@@ -25,6 +25,7 @@ const current = {
   path: "" as string,
   selection: [] as string[],
   iframe: undefined as HTMLIFrameElement | undefined,
+  myDocumentsId: undefined as number | undefined,
 };
 
 export function drawInIframe(id: string, callback: Function, ...args: any) {
@@ -150,7 +151,10 @@ export async function selector(
   if (path.length == 0) {
     docSpaceFolder.classList.add("current-folder");
 
-    addSelectorFolder("My documents", "my-documents", 1);
+    if (!current.myDocumentsId) {
+      current.myDocumentsId = (await archives.getFolder("@my")).pathParts[0].id;
+    }
+    addSelectorFolder("My documents", "my-documents", current.myDocumentsId);
     addSelectorFolder("Rooms", "rooms");
   } else {
     archives.destinationFolderId = path[path.length - 1].id;
