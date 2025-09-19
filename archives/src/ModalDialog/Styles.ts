@@ -50,7 +50,8 @@ export function addStyles(iframe: HTMLIFrameElement, dark: boolean) {
         background-color: ${dark ? colors.dark_contrastBackground : colors.contrastBackground};
     }
     .side-folder-arrow {
-        margin-left: 16px;
+        margin-left: 12px;
+        padding: 4px;
     }
     .side-folder-arrow svg path {
         fill: ${dark ? colors.dark_text : colors.text};
