@@ -62,23 +62,30 @@ export function viewer(iframe: HTMLIFrameElement, root: FileTreeItem[], fileName
 
   const explorerHeader = iframe.contentWindow!.document.createElement("div");
   explorerHeader.id = "explorer-header";
-  createExplorerHeader(explorerHeader);
 
   const explorerBody = iframe.contentWindow!.document.createElement("div");
   explorerBody.id = "explorer-body";
-  addExplorerElements(explorerBody);
 
   const explorer = iframe.contentWindow!.document.createElement("div");
   explorer.id = "explorer";
-  explorer.appendChild(explorerHeader);
-  explorer.appendChild(explorerBody);
 
   const viewer = iframe.contentWindow!.document.createElement("div");
   viewer.id = "viewer";
-  viewer.appendChild(sidePanel);
-  viewer.appendChild(explorer);
 
-  addSideElements(sidePanel, root, "");
+  if (root.some((item) => item.type == "folder")) {
+    viewer.appendChild(sidePanel);
+    addSideElements(sidePanel, root, "");
+  } else {
+    explorer.style.width = "100%";
+  }
+
+  explorer.appendChild(explorerHeader);
+  createExplorerHeader(explorerHeader);
+
+  explorer.appendChild(explorerBody);
+  addExplorerElements(explorerBody);
+
+  viewer.appendChild(explorer);
 
   const selector = iframe.contentWindow!.document.createElement("div"); // TODO: [temp]
   selector.id = "selector";
