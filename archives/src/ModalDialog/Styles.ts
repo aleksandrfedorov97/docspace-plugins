@@ -37,12 +37,14 @@ export function addStyles(iframe: HTMLIFrameElement, dark: boolean) {
         border-right: 1px solid ${dark ? colors.dark_border : colors.border};
         ${dark ? `scrollbar-color: ${colors.dark_tertiaryText} ${colors.dark_background};` : ""}
     }
+    .root-side-element,
     .side-element {
         flex-direction: row;
         align-items: center;
         padding: 10px 0px;
         cursor: pointer;
     }
+    .root-side-element:hover,
     .side-element:hover {
         background-color: ${dark ? colors.dark_contrastBackground : colors.contrastBackground};
     }

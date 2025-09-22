@@ -227,6 +227,33 @@ export async function selector(
 }
 
 function addSideElements(sidePanel: HTMLDivElement, folder: FileTreeItem[], path: string) {
+  const createFolderIcon = () => {
+    const icon = sidePanel.ownerDocument.createElement("div");
+    icon.className = "side-folder-icon";
+    icon.innerHTML = getSVGIcon("side-folder");
+    return icon;
+  };
+
+  const createFolderTitle = (title: string) => {
+    const titleElement = sidePanel.ownerDocument.createElement("div");
+    titleElement.className = "side-folder-title";
+    titleElement.innerText = title;
+    return titleElement;
+  };
+
+  if (path == "") {
+    const rootSideElement = sidePanel.ownerDocument.createElement("div");
+    rootSideElement.className = "root-side-element";
+    rootSideElement.style.display = "flex";
+    rootSideElement.style.paddingLeft = "8px";
+    rootSideElement.appendChild(createFolderIcon());
+    rootSideElement.appendChild(createFolderTitle(current.file!));
+    rootSideElement.addEventListener("dblclick", () => {
+      changeFolder("");
+    });
+    sidePanel.appendChild(rootSideElement);
+  }
+
   const padding = 16 * (path.split("/").length - 1);
   const subFolders = [];
 
@@ -263,22 +290,14 @@ function addSideElements(sidePanel: HTMLDivElement, folder: FileTreeItem[], path
         arrow.style.minWidth = "8px";
       }
 
-      const folderIcon = sidePanel.ownerDocument.createElement("div");
-      folderIcon.className = "side-folder-icon";
-      folderIcon.innerHTML = getSVGIcon("side-folder");
-
-      const folderTitle = sidePanel.ownerDocument.createElement("div");
-      folderTitle.className = "side-folder-title";
-      folderTitle.innerText = item.title;
-
       const sideElement = sidePanel.ownerDocument.createElement("div");
       sideElement.id = newPath;
       sideElement.className = "side-element";
       sideElement.style.paddingLeft = `${padding}px`;
       sideElement.style.display = path == "" ? "flex" : "none";
       sideElement.appendChild(arrow);
-      sideElement.appendChild(folderIcon);
-      sideElement.appendChild(folderTitle);
+      sideElement.appendChild(createFolderIcon());
+      sideElement.appendChild(createFolderTitle(item.title));
       sideElement.addEventListener("dblclick", () => {
         changeFolder(newPath);
       });
