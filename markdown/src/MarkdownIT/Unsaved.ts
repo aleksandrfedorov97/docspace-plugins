@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-import { 
-    Actions, 
-    ButtonSize, 
-    Components, 
-    IBox, 
-    IButton, 
-    ICheckbox, 
-    IMessage, 
-    IModalDialog, 
-    IText, 
-    ModalDisplayType 
+import {
+    ButtonSize,
+    Components,
+    IBox,
+    IButton,
+    ICheckbox,
+    IModalDialog,
+    IText,
+    ModalDisplayType
 } from "@onlyoffice/docspace-plugin-sdk";
 import { intendBox } from "./Dialog";
 

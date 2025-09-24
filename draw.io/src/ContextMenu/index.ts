@@ -17,7 +17,6 @@
 import {
   Devices,
   File,
-  FilesExst,
   FilesType,
   IContextMenuItem,
   Security,

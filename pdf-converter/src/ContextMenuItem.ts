@@ -19,7 +19,6 @@ import {
   FilesType,
   IContextMenuItem,
   Security,
-  UsersType,
 } from "@onlyoffice/docspace-plugin-sdk";
 import convertFile from "./ConvertFile";
 
@@ -31,5 +30,4 @@ export const convertFileItem: IContextMenuItem = {
   fileType: [FilesType.file],
   fileExt: [FilesExst.docx, FilesExst.xlsx, FilesExst.pptx],
   security: [Security.Create],
-  // usersTypes: [UsersType.owner, UsersType.docSpaceAdmin, UsersType.roomAdmin],
 };
