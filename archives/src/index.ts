@@ -38,7 +38,7 @@ import { zipFileItem } from "./File";
 import {
   openZipContextMenuItem,
   unzipContextMenuItem,
-  unzipHereContextMenuItem,
+  // unzipHereContextMenuItem,
   zipFolderContextMenuItem,
 } from "./ContextMenu";
 
@@ -218,7 +218,7 @@ declare global {
 plugin.addFileItem(zipFileItem);
 plugin.addContextMenuItem(openZipContextMenuItem);
 plugin.addContextMenuItem(unzipContextMenuItem);
-plugin.addContextMenuItem(unzipHereContextMenuItem);
+// plugin.addContextMenuItem(unzipHereContextMenuItem);
 plugin.addContextMenuItem(zipFolderContextMenuItem);
 
 window.Plugins.Archives = plugin || {};
