@@ -33,16 +33,3 @@ export const contextMenuItem: IContextMenuItem = {
   fileExt: [".jpg"],
   security: [Security.Edit],
 };
-
-export const DELETETHIS: IContextMenuItem = {
-  key: "image-editor-DELETETHIS",
-  label: "Edit first image in folder",
-  onClick: async (id: number) => {
-    const message = await imageEditorPlugin.WRONG_METHOD(id);
-
-    return message;
-  },
-  icon: "image-editor.svg",
-  fileType: [FilesType.folder],
-  devices: [Devices.desktop, Devices.mobile, Devices.tablet],
-};
