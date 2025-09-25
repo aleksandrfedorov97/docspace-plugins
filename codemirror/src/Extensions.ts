@@ -65,12 +65,14 @@ export const colors = {
   contrast: "#a3a9ae",
   border: "#d0d5da",
   hoverBorder: "#4781d1",
+  active_line: "#e4e4e444",
   dark: "#333333",
   dark_secondary: "#3d3d3d",
   dark_altSecondary: "#474747",
   dark_contrast: "#858585",
   dark_border: "#474747",
   dark_hoverBorder: "#a3a3a3",
+  dark_active_line: "#5a5a5a44",
 };
 
 export const docSpaceTheme = (theme: string) => {
@@ -135,7 +137,7 @@ export const docSpaceTheme = (theme: string) => {
         backgroundColor: light ? colors.altSecondary : colors.dark_altSecondary,
       },
       ".cm-activeLine": {
-        backgroundColor: light ? colors.secondary : colors.dark_secondary,
+        backgroundColor: light ? colors.active_line : colors.dark_active_line,
       },
       ".cm-lineNumbers .cm-gutterElement": {
         padding: "0 3px 0 10px",
