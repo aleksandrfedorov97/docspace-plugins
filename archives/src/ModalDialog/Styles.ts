@@ -43,6 +43,7 @@ export function addStyles(iframe: HTMLIFrameElement, dark: boolean) {
         align-items: center;
         padding: 10px 0px;
         cursor: pointer;
+        user-select: none;
     }
     .root-side-element:hover,
     .side-element:hover {
@@ -145,6 +146,7 @@ export function addStyles(iframe: HTMLIFrameElement, dark: boolean) {
         display: flex;
         align-items: center;
         padding: 0 16px;
+        user-select: none;
     }
     .explorer-icon {
         min-width: 32px;
