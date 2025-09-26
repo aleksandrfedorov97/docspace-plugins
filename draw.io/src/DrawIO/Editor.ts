@@ -25,16 +25,12 @@ import drawIo from "../Drawio";
 let autoSaveTimer = null;
 
 function DiagramEditor(
-  ui: string,
-  dark: string,
   off: boolean,
   lib: boolean,
   lang: string,
   url: string,
   showSaveButton: boolean
 ) {
-  this.ui = ui;
-  this.dark = dark;
   this.off = off;
   this.lib = lib;
   this.lang = lang;
@@ -111,14 +107,6 @@ DiagramEditor.prototype.getFrameUrl = function () {
   var url = this.url;
 
   url += "?proto=json&spin=1&embed=1";
-
-  if (this.ui != null) {
-    url += "&ui=" + this.ui;
-  }
-
-  if (this.dark != null) {
-    url += "&dark=" + this.dark;
-  }
 
   if (this.off != null) {
     url += "&offline=";
