@@ -109,10 +109,10 @@ class DrawIo {
     off: boolean | null,
     lib: boolean | null
   ) => {
-    url && this.setUrl(url);
-    lang && this.setLang(lang);
-    off && this.setOff(off);
-    lib && this.setLib(lib);
+    url !== null && this.setUrl(url);
+    lang !== null && this.setLang(lang);
+    off !== null && this.setOff(off);
+    lib !== null && this.setLib(lib);
   };
 
   getAdminSettings = () => {
