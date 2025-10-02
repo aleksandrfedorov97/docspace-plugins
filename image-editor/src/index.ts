@@ -34,7 +34,6 @@ import {
   IFileItem,
 } from "@onlyoffice/docspace-plugin-sdk";
 import { contextMenuItem } from "./ContextMenu";
-import { imageEditorItems } from "./File";
 
 class Imageeditor
   implements
@@ -210,9 +209,6 @@ declare global {
 }
 
 plugin.addContextMenuItem(contextMenuItem);
-for (const item of imageEditorItems) {
-  plugin.addFileItem(item);
-}
 
 window.Plugins.Imageeditor = plugin || {};
 
