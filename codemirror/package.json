@@ -52,6 +52,6 @@
   "description": "TODO: description",
   "pluginName": "Codemirror",
   "license": "MIT",
-  "logo": "logo.svg",
+  "logo": "codemirror.svg",
   "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/codemirror"
 }

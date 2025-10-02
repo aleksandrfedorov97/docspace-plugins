@@ -27,8 +27,8 @@ for (const ext of supportedFileExts) {
   codemirrorItems.push({
     extension: "." + ext,
     fileTypeName: "Code",
-    fileRowIcon: `codemirror.svg`,
-    fileTileIcon: `codemirror.svg`,
+    fileRowIcon: `codemirror-file.svg`,
+    fileTileIcon: `codemirror-file.svg`,
     onClick,
   });
 }
