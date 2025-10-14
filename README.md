@@ -4,6 +4,7 @@ This repository comprises plugins which allow extending the functionality of [ON
 
 * [draw.io](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io)
 * [markdown](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/markdown)
+* [ImageEditor](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/image-editor)
 * [pdf-converter](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/pdf-converter)
 * [speech-to-text](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/speech-to-text)
 

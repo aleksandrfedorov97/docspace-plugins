@@ -11,7 +11,7 @@
   "bugs": {
     "email": "support@onlyoffice.com"
   },
-  "pluginName": "Imageeditor",
+  "pluginName": "ImageEditor",
   "logo": "image-editor.svg",
   "cspDomains": [
     "https://www.google-analytics.com/",
