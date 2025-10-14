@@ -2,6 +2,7 @@
 
 This repository comprises plugins which allow extending the functionality of [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace.aspx).
 
+* [Archives](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/archives)
 * [draw.io](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io)
 * [markdown](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/markdown)
 * [pdf-converter](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/pdf-converter)
