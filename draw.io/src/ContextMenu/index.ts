@@ -19,7 +19,7 @@ import {
   File,
   FilesType,
   IContextMenuItem,
-  Security,
+  FilesSecurity,
 } from "@onlyoffice/docspace-plugin-sdk";
 import drawIo from "../Drawio";
 
@@ -37,5 +37,5 @@ export const contextMenuItem: IContextMenuItem = {
   fileType: [FilesType.image, FilesType.file],
   devices: [Devices.desktop],
   fileExt: [".drawio", ".png"],
-  security: [Security.Download],
+  itemSecurity: [FilesSecurity.Download],
 };
