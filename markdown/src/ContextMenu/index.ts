@@ -18,7 +18,7 @@ import {
   Devices,
   FilesType,
   IContextMenuItem,
-  Security,
+  FilesSecurity,
 } from "@onlyoffice/docspace-plugin-sdk";
 import markdownIt from "../Markdownit";
 
@@ -42,7 +42,7 @@ export const contextMenuItem: IContextMenuItem = {
   fileType: [FilesType.file],
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
   fileExt: [".md"],
-  security: [Security.Edit],
+  itemSecurity: [FilesSecurity.Edit],
 };
 
 export const contextMenuViewerItem: IContextMenuItem = {
