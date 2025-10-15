@@ -14,25 +14,59 @@
  * limitations under the License.
  */
 
-import { Actions, IMainButtonItem, IMessage, ToastType } from "@onlyoffice/docspace-plugin-sdk";
+import { Actions, ICreateDialog, IMainButtonItem, IMessage } from "@onlyoffice/docspace-plugin-sdk";
 import { supportedFileExts } from "../properties.json";
 import codemirror from "../Codemirror";
 
 let createLock = false;
 
-function createErrorToast(title: string): IMessage {
-  createLock = false;
+const createDialog: ICreateDialog = {
+  title: "Create text file",
+  startValue: "Text file",
+  visible: true,
+  isCreateDialog: true,
+  extension: "",
+  isAutoFocusOnError: true,
+  isCloseAfterCreate: true,
+  isCreateDisabled: false,
+  onSave: async (e: any, value: string) => {
+    if (createLock) return {};
+    else createLock = true;
 
-  return {
-    actions: [Actions.showToast],
-    toastProps: [
-      {
-        type: ToastType.error,
-        title: title,
-      },
-    ],
-  };
-}
+    if (!value.includes(".")) {
+      throw new Error("File extension must be provided");
+    }
+
+    if (!supportedFileExts.includes(value.split(".").pop()!)) {
+      throw new Error("File extension not supported by Codemirror plugin");
+    }
+
+    const fileID = await codemirror.createNewFile(value);
+    if (typeof fileID === "object") {
+      createDialog.isCreateDisabled = true;
+      throw new Error(`File "${value}.md" was not created: ${fileID.message}`);
+    }
+
+    const message = await codemirror.openFile(fileID);
+
+    createLock = false;
+    return message;
+  },
+  onError: (e: any) => {
+    createLock = false;
+    createDialog.errorText = e.message;
+    return {
+      actions: [Actions.updateCreateDialogModal],
+      createDialogProps: createDialog,
+    };
+  },
+  onCancel: (e: any) => {
+    codemirror.setCurrentFolderId(null);
+  },
+  onClose: (e: any) => {
+    codemirror.setCurrentFolderId(null);
+  },
+};
 
 const codemirrorMainButtonItem: IMainButtonItem = {
   key: "codemirror-main-button-item",
@@ -40,44 +74,11 @@ const codemirrorMainButtonItem: IMainButtonItem = {
   icon: "codemirror.svg",
   onClick: (id: number) => {
     codemirror.setCurrentFolderId(id);
+    createDialog.isCreateDisabled = false;
 
     const message: IMessage = {
       actions: [Actions.showCreateDialogModal],
-      createDialogProps: {
-        title: "Create text file",
-        startValue: "Text file",
-        visible: true,
-        isCreateDialog: true,
-        extension: "",
-        onSave: async (e: any, value: string) => {
-          if (createLock) return {};
-          else createLock = true;
-
-          if (!value.includes(".")) {
-            return createErrorToast("File extension must be provided");
-          }
-
-          if (!supportedFileExts.includes(value.split(".").pop()!)) {
-            return createErrorToast("File extension not supported by Codemirror plugin");
-          }
-
-          const fileID = await codemirror.createNewFile(value);
-          if (typeof fileID === "object") {
-            return createErrorToast(`File "${value}.md" was not created: ${fileID.message}`);
-          }
-
-          const message = await codemirror.openFile(fileID);
-
-          createLock = false;
-          return message;
-        },
-        onCancel: (e: any) => {
-          codemirror.setCurrentFolderId(null);
-        },
-        onClose: (e: any) => {
-          codemirror.setCurrentFolderId(null);
-        },
-      },
+      createDialogProps: createDialog,
     };
 
     return message;

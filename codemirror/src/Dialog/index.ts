@@ -78,7 +78,6 @@ export const footerBox: IBox = {
 const iframeBox: IBox = {
   widthProp: "93vw",
   heightProp: "74vh",
-  marginProp: "-16px -15px -8px -16px", // TODO: [DS] ask for no-padding dialog body
   children: [
     {
       component: Components.iFrame,
@@ -106,6 +105,8 @@ export const codemirrorModalDialogProps: IModalDialog = {
       newDialogFooter: codemirrorModalDialogProps.dialogFooter,
     };
   },
+  withoutBodyPadding: true,
+  withoutHeaderMargin: true,
   withFooterBorder: true,
   autoMaxHeight: true,
   autoMaxWidth: true,

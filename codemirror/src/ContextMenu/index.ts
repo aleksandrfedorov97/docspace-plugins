@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Devices, FilesType, IContextMenuItem, Security } from "@onlyoffice/docspace-plugin-sdk";
+import { Devices, FilesType, IContextMenuItem, FilesSecurity } from "@onlyoffice/docspace-plugin-sdk";
 import codemirror from "../Codemirror";
 import { supportedFileExts } from "../properties.json";
 
@@ -29,8 +29,8 @@ export const contextMenuItem: IContextMenuItem = {
   label: "Edit file with Codemirror",
   onClick,
   icon: "codemirror.svg",
-  fileType: [FilesType.file], // TODO: [DS] context menu dont work
+  fileType: [FilesType.file],
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
   fileExt: supportedFileExts.map((ext) => "." + ext),
-  security: [Security.Edit],
+  itemSecurity: [FilesSecurity.Edit],
 };

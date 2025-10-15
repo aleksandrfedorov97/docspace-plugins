@@ -274,8 +274,8 @@ function coreExtensions(settings: any) {
     syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
     EditorState.allowMultipleSelections.of(true),
 
-    // EditorState.tabSize.of(), // TODO: [ifbug] tab size = what??
-    // EditorState.lineSeparator.of(), // TODO: [ifbug] correct line separator
+    // EditorState.tabSize.of(), // TODO: handle tab size
+    // EditorState.lineSeparator.of(), // TODO: handle line separator
 
     keymap.of([
       ...defaultKeymap,
@@ -284,7 +284,7 @@ function coreExtensions(settings: any) {
       ...historyKeymap,
       ...foldKeymap,
       ...completionKeymap,
-      indentWithTab, // TODO: [ifbug] tab = what? now "  ", not "\t"
+      indentWithTab, // TODO: tab = what? now "  ", not "\t"
     ]),
   ];
 
