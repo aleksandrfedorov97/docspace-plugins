@@ -29,12 +29,11 @@
     "File"
   ],
   "scripts": {
-    "build": "webpack && node ./scripts/createZip.js",
+    "build": "webpack && npx build-docspace-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {
     "@types/markdown-it": "^13.0.7",
-    "jszip": "^3.10.1",
     "prettier": "2.8.6",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
@@ -42,7 +41,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "@onlyoffice/docspace-plugin-sdk": "^1.1.1",
+    "@onlyoffice/docspace-plugin-sdk": "^2.0.0",
     "highlight.js": "^11.9.0",
     "markdown-it": "^14.0.0"
   }
