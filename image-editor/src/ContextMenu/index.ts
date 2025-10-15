@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-import { Devices, FilesType, IContextMenuItem, Security } from "@onlyoffice/docspace-plugin-sdk";
+import { Devices, FilesType, IContextMenuItem, FilesSecurity } from "@onlyoffice/docspace-plugin-sdk";
 import imageEditorPlugin from "../ImageEditor";
-
-const onClick = async (id: number) => {
-  const message = await imageEditorPlugin.openFile(id);
-
-  return message;
-};
+import { supportedFormats } from "../properties.json";
 
 export const contextMenuItem: IContextMenuItem = {
   key: "image-editor-context-menu-item",
   label: "Edit image",
-  onClick,
+  onClick: (id: number) => imageEditorPlugin.openFile(id),
   icon: "image-editor.svg",
   fileType: [FilesType.image],
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
-  fileExt: [".jpg"],
-  security: [Security.Edit],
+  fileExt: supportedFormats,
+  itemSecurity: [FilesSecurity.Edit],
 };

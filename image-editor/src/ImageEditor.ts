@@ -149,7 +149,7 @@ class ImageEditorPlugin {
     }
 
     const styles = getStyles();
-    document.head.innerHTML = styles;
+    iFrame.contentWindow!.document.head.innerHTML = styles;
 
     [
       "https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.css",
@@ -244,14 +244,10 @@ function dataURLToBlob(dataURL: string): Promise<Blob> {
 }
 
 function getStyles() {
-  // TODO: hide both buttons?
   return `
     <style>
       body {
         margin: 0;
-      }
-      .tui-image-editor-header-buttons div {
-        display: none;
       }
     </style>
   `;

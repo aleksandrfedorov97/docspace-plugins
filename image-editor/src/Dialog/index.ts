@@ -85,6 +85,8 @@ export const imageEditorModalDialogProps: IModalDialog = {
   dialogHeader: "",
   dialogBody: dialogBody,
   displayType: ModalDisplayType.modal,
+  withoutBodyPadding: true,
+  withoutHeaderMargin: true,
   onClose: () => {
     const message: IMessage = {
       actions: [Actions.closeModal],
