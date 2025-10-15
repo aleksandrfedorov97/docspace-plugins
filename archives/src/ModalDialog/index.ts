@@ -37,7 +37,6 @@ export const frameProps: IFrame = {
 const iframeBox: IBox = {
   widthProp: "800px",
   heightProp: "60vh",
-  marginProp: "-16px -15px -8px -16px",
   children: [
     {
       component: Components.iFrame,
@@ -108,6 +107,8 @@ export const modalDialogProps: IModalDialog = {
       newDialogFooter: modalDialogProps.dialogFooter,
     };
   },
+  withoutBodyPadding: true,
+  withoutHeaderMargin: true,
   autoMaxHeight: true,
   autoMaxWidth: true,
 };

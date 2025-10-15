@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Devices, File, FilesType, IContextMenuItem, Security } from "@onlyoffice/docspace-plugin-sdk";
+import { Devices, File, FilesType, IContextMenuItem, FilesSecurity } from "@onlyoffice/docspace-plugin-sdk";
 import archives from "../Archives";
 
 export const openZipContextMenuItem: IContextMenuItem = {
@@ -23,18 +23,28 @@ export const openZipContextMenuItem: IContextMenuItem = {
   onClick: (id: File | any) => archives.openZip(id),
   icon: "zip.svg",
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
-  // fileExt: [".zip"],
-  security: [Security.Edit],
+  fileExt: [".zip"],
+  itemSecurity: [FilesSecurity.Edit],
 };
 
 export const unzipContextMenuItem: IContextMenuItem = {
   key: "archives-unzip-context-menu-item",
-  label: "Unzip",
-  onClick: () => {},
+  label: "Choose location to unzip",
+  onClick: (id: File | any) => archives.openSelector(id),
   icon: "zip.svg",
   devices: [Devices.desktop, Devices.mobile, Devices.tablet],
-  // fileExt: [".zip"],
-  security: [Security.Edit],
+  fileExt: [".zip"],
+  itemSecurity: [FilesSecurity.Edit],
+};
+
+export const unzipHereContextMenuItem: IContextMenuItem = {
+  key: "archives-unzip-here-context-menu-item",
+  label: "Unzip here",
+  onClick: (id: number) => archives.unzip(id),
+  icon: "zip.svg",
+  devices: [Devices.desktop, Devices.mobile, Devices.tablet],
+  fileExt: [".zip"],
+  itemSecurity: [FilesSecurity.Edit],
 };
 
 export const zipFolderContextMenuItem: IContextMenuItem = {
