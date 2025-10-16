@@ -17,7 +17,6 @@
 import plugin from ".";
 import { Actions, IMessage, IToast, ToastType, File } from "@onlyoffice/docspace-plugin-sdk";
 import { imageEditorModalDialogProps, saveExitButton } from "./Dialog";
-import ImageEditor = require("tui-image-editor"); // TODO: remove
 
 class ImageEditorPlugin {
   imageEditor: any;
