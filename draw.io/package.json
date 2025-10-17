@@ -11,7 +11,7 @@
   "bugs": {
     "email": "support@onlyoffice.com"
   },
-  "pluginName": "draw.io",
+  "pluginName": "Drawio",
   "logo": "logo.svg",
   "cspDomains": [
     "https://embed.diagrams.net"
