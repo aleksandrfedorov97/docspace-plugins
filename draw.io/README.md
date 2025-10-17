@@ -26,4 +26,4 @@ draw.io diagrams can be exported as images. Such images can be re-opened and edi
 
 ## User feedback and support
 
-To ask questions and share feedback, use [Issues](https://github.com/ONLYOFFICE/docspace-plugins/issues) in this repository or visit [our forum](https://forum.onlyoffice.com/).
+To ask questions and share feedback, use [Issues](https://github.com/ONLYOFFICE/docspace-plugins/issues) in this repository. Alternatively, you can contact ONLYOFFICE team via [community.onlyoffice.com](https://community.onlyoffice.com) or [feedback.onlyoffice.com](https://feedback.onlyoffice.com/forums/966080-your-voice-matters).
