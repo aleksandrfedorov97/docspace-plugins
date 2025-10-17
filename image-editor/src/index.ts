@@ -210,6 +210,6 @@ declare global {
 
 plugin.addContextMenuItem(contextMenuItem);
 
-window.Plugins.Imageeditor = plugin || {};
+window.Plugins.ImageEditor = plugin || {};
 
 export default plugin;
