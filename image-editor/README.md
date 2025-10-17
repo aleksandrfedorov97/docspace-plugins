@@ -10,11 +10,11 @@ In case you want to adjust the plugin settings, go to *Settings -> Integration -
 
 ## How to use
 
-To use the plugin, right-click on an image file in the file list and select **Edit Image** from the context menu.
+To use the plugin, right-click on an image file in the file list and select **Edit Image** from the context menu.
 
 **Supported formats:** .jpg, .jpeg, .png, .gif, .webp, .svg, .bmp, .tiff, .ico
 
-An image editor pop-up will open, featuring a toolbar on the right with various tools such as **Resize, Crop, Flip, Rotate, Draw, Shape, Icon, Text,** and **Mask**. Once you've made your edits, click the **Save and Exit** button at the bottom to apply the changes.
+An image editor pop-up will open, featuring a toolbar on the right with various tools such as **Resize, Crop, Flip, Rotate, Draw, Shape, Icon, Text,** and **Mask**. Once you've made your edits, click the **Save and Exit** button at the bottom to apply the changes.
 
 After saving, a notification will confirm the successful update, and the file version will be updated accordingly.
 
