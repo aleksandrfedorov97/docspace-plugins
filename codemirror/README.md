@@ -14,10 +14,10 @@ You can customize the highlighting of spaces and enable the auto-closing of HTML
 
 ### Creating a new file
 
-- Navigate to the **Action** button and select the **More** menu, either in the **My Documents** section or within a chosen room. 
-- Choose the **Text File** option. A pop-up will appear prompting you to enter a file name. Be sure to include the appropriate format, such as *style.css*, *script.js*, etc. 
-- Click the **Create** button to open the Codemirror code editor in a new pop-up window. Here, you can edit the file's content. 
-- To save your changes, click the **Save** button. To close the editor, click the X icon in the upper-right corner of the pop-up.
+- Navigate to the **Action** button and select the **More** menu, either in the **My Documents** section or within a chosen room. 
+- Choose the **Text File** option. A pop-up will appear prompting you to enter a file name. Be sure to include the appropriate format, such as *style.css*, *script.js*, etc. 
+- Click the **Create** button to open the Codemirror code editor in a new pop-up window. Here, you can edit the file's content. 
+- To save your changes, click the **Save** button. To close the editor, click the X icon in the upper-right corner of the pop-up.
 
 The newly created file will then appear in the file list.
 
