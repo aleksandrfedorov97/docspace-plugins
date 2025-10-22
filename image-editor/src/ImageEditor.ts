@@ -165,6 +165,7 @@ class ImageEditorPlugin {
     [
       // TODO: all min and not latest
       "https://cdn.jsdelivr.net/npm/fabric@6.7.1/dist/index.min.js",
+      "https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js",
       "https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js",
       "https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.js",
       "https://uicdn.toast.com/tui-image-editor/latest/tui-image-editor.js",
@@ -197,7 +198,7 @@ class ImageEditorPlugin {
       includeUI: {
         loadImage: {
           path: url,
-          name: title,
+          name: title.split(".").slice(0, -1).join("."),
         },
         theme: getTheme(dark),
         initMenu: "filter",
