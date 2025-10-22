@@ -305,7 +305,7 @@ function addSideElements(sidePanel: HTMLDivElement, folder: FileTreeItem[], path
       sideElement.appendChild(arrow);
       sideElement.appendChild(createFolderIcon());
       sideElement.appendChild(createFolderTitle(item.title));
-      sideElement.addEventListener("dblclick", () => {
+      sideElement.addEventListener("click", () => {
         changeFolder(newPath);
       });
 
