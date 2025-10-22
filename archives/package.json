@@ -1,5 +1,5 @@
 {
-  "name": "archives",
+  "name": "zip-archives",
   "version": "1.0.0",
   "description": "DocSpace plugin for opening and extracting ZIP archives",
   "license": "Apache-2.0",
@@ -11,7 +11,7 @@
   "bugs": {
     "email": "support@onlyoffice.com"
   },
-  "pluginName": "Archives",
+  "pluginName": "ZipArchives",
   "logo": "zip.svg",
   "scpDomains": [
     "https://fonts.googleapis.com/"
