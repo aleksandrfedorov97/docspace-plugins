@@ -75,6 +75,7 @@ const codemirrorMainButtonItem: IMainButtonItem = {
   onClick: (id: number) => {
     codemirror.setCurrentFolderId(id);
     createDialog.isCreateDisabled = false;
+    createDialog.errorText = "";
 
     const message: IMessage = {
       actions: [Actions.showCreateDialogModal],
