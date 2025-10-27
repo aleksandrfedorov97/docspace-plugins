@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Devices, File, FilesType, IContextMenuItem, FilesSecurity } from "@onlyoffice/docspace-plugin-sdk";
+import { Devices, File, FilesType, IContextMenuItem, FilesSecurity, Security } from "@onlyoffice/docspace-plugin-sdk";
 import archives from "../Archives";
 
 export const openZipContextMenuItem: IContextMenuItem = {
@@ -53,4 +53,5 @@ export const zipFolderContextMenuItem: IContextMenuItem = {
   onClick: (id: number) => archives.zipFolder(id),
   icon: "zip.svg",
   fileType: [FilesType.folder],
+  security: [Security.Create],
 };
