@@ -25,6 +25,24 @@ The newly created file will then appear in the file list.
 
 You can open previously created or downloaded files using the Codemirror plugin. Simply click on the file name with the Codemirror icon, or right-click to open the context menu and select **Edit File with Codemirror**.
 
+### Supported languages
+
+- C (`cpp`, `cc`, `h`, `hpp`)
+- CSS
+- Go
+- HTML / HTM
+- JAVA (`java`, `class`)
+- JavaScript / TypeScript (`js`, `jsx`, `ts`, `tsx`)
+- JSON
+- Liquid
+- PHP
+- Python
+- Rust
+- SCSS (`sass`, `scss`)
+- SQL (`sql`, `mysql`, `pgsql`, `postgresql`, `sqlite`, `db`, `mssql`, `cql`, `plsql`, `mariadb`)
+- WAST
+- YAML
+
 ## User feedback and support
 
 To ask questions and share feedback, use [Issues](https://github.com/ONLYOFFICE/docspace-plugins/issues) in this repository. Alternatively, you can contact ONLYOFFICE team via [community.onlyoffice.com](https://community.onlyoffice.com) or [feedback.onlyoffice.com](https://feedback.onlyoffice.com/forums/966080-your-voice-matters).
