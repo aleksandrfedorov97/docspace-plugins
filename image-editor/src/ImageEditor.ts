@@ -219,12 +219,6 @@ class ImageEditorPlugin {
         rotatingPointOffset: 70,
       },
     });
-
-    const dataUrl = iframe.contentWindow!.document.head.children; // TODO: more correct way without console error?
-    const href = dataUrl[dataUrl.length - 1].getAttribute("href");
-    const style = document.createElement("style");
-    style.innerHTML = decodeURIComponent(href?.split("data:text/css;charset=UTF-8,")[1]!);
-    iframe.contentWindow?.document.head.appendChild(style);
   };
 }
 

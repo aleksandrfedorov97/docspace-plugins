@@ -16,7 +16,9 @@
   "cspDomains": [
     "https://www.google-analytics.com/",
     "https://uicdn.toast.com/",
-    "https://cdn.jsdelivr.net/"
+    "https://cdn.jsdelivr.net/",
+    "blob:",
+    "data:"
   ],
   "main": "index.ts",
   "private": true,
