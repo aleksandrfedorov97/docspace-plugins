@@ -233,6 +233,13 @@ class Archives {
       }),
     });
 
+    if (!sessionRes.ok) {
+      return {
+        actions: [Actions.showToast],
+        toastProps: [{ type: ToastType.error, title: "Failed to create zip" } as IToast],
+      };
+    }
+
     const sessionData = (await sessionRes.json()).response.data;
 
     const data = await (
