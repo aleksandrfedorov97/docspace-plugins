@@ -1,0 +1,62 @@
+{
+  "name": "codemirror",
+  "version": "1.0.0",
+  "description": "DocSpace plugin for viewing and editing files with various programming code formats",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/codemirror",
+  "author": "ONLYOFFICE",
+  "maintainers": [
+    "Ascensio System SIA <integration@onlyoffice.com> (https://www.onlyoffice.com)"
+  ],
+  "bugs": {
+    "email": "support@onlyoffice.com"
+  },
+  "pluginName": "Codemirror",
+  "logo": "codemirror.svg",
+  "scpDomains": [
+    "https://fonts.googleapis.com/"
+  ],
+  "main": "index.ts",
+  "private": true,
+  "scopes": [
+    "API",
+    "Settings",
+    "ContextMenu",
+    "InfoPanel",
+    "MainButton",
+    "ProfileMenu",
+    "EventListener",
+    "File"
+  ],
+  "scripts": {
+    "build": "webpack && npx build-docspace-plugin",
+    "format": "npx prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "2.8.6",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-go": "^6.0.1",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-liquid": "^6.2.3",
+    "@codemirror/lang-php": "^6.0.2",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/lang-rust": "^6.0.2",
+    "@codemirror/lang-sass": "^6.0.2",
+    "@codemirror/lang-sql": "^6.9.0",
+    "@codemirror/lang-wast": "^6.0.2",
+    "@codemirror/lang-yaml": "^6.1.2",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@onlyoffice/docspace-plugin-sdk": "^2.0.0",
+    "codemirror": "^6.0.2"
+  }
+}
