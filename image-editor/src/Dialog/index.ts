@@ -64,9 +64,9 @@ const iframeBox: IBox = {
   ],
 };
 
-const dialogBody: IBox = {
-  widthProp: "80vw",
-  heightProp: "80vh",
+export const dialogBody: IBox = {
+  widthProp: "90vw",
+  heightProp: "75vh",
   displayProp: "flex",
   flexDirection: "column",
   children: [
@@ -74,6 +74,13 @@ const dialogBody: IBox = {
       component: Components.box,
       props: iframeBox,
     },
+  ],
+};
+
+const dialogFooter: IBox = {
+  widthProp: "100%",
+  heightProp: "100%",
+  children: [
     {
       component: Components.button,
       props: saveExitButton,
@@ -84,6 +91,7 @@ const dialogBody: IBox = {
 export const imageEditorModalDialogProps: IModalDialog = {
   dialogHeader: "",
   dialogBody: dialogBody,
+  dialogFooter: dialogFooter,
   displayType: ModalDisplayType.modal,
   withoutBodyPadding: true,
   withoutHeaderMargin: true,
@@ -98,6 +106,7 @@ export const imageEditorModalDialogProps: IModalDialog = {
     return {
       newDialogHeader: imageEditorModalDialogProps.dialogHeader || "",
       newDialogBody: imageEditorModalDialogProps.dialogBody,
+      newDialogFooter: imageEditorModalDialogProps.dialogFooter,
     };
   },
   autoMaxHeight: true,

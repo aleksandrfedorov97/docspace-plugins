@@ -16,7 +16,7 @@
 
 import plugin from ".";
 import { Actions, IMessage, IToast, ToastType, File } from "@onlyoffice/docspace-plugin-sdk";
-import { imageEditorModalDialogProps, saveExitButton } from "./Dialog";
+import { imageEditorModalDialogProps, saveExitButton, dialogBody } from "./Dialog";
 
 class ImageEditorPlugin {
   imageEditor: any;
@@ -129,6 +129,10 @@ class ImageEditorPlugin {
 
       return message;
     };
+
+    saveExitButton.scale = isMobile();
+    dialogBody.widthProp = isMobile() ? "100vw" : "90vw";
+
     const message: IMessage = {
       actions: [Actions.showModal],
       modalDialogProps: imageEditorModalDialogProps,
@@ -260,6 +264,11 @@ function getTheme(dark: boolean) {
     "common.backgroundImage": "none",
     "common.backgroundColor": "#f3f4f6",
   };
+}
+
+function isMobile() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /mobile|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(userAgent);
 }
 
 const imageEditorPlugin = new ImageEditorPlugin();
