@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+## Changed
+- using sdk v2.0.0
+- rename context menu option and show it with download permission
+- open file only with download permission
+
 ## 1.1.0
 ## Changed
 - support new DocSpace roles

@@ -80,7 +80,7 @@ const inputBox: IBox = {
 };
 
 const urlText: IText = {
-  text: "Draw.io",
+  text: "draw.io",
   fontWeight: 600,
   fontSize: "13px",
   lineHeight: "20px",

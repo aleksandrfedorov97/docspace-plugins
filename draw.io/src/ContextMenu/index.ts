@@ -17,10 +17,9 @@
 import {
   Devices,
   File,
-  FilesExst,
   FilesType,
   IContextMenuItem,
-  Security,
+  FilesSecurity,
 } from "@onlyoffice/docspace-plugin-sdk";
 import drawIo from "../Drawio";
 
@@ -32,11 +31,11 @@ const onClick = async (id: number) => {
 
 export const contextMenuItem: IContextMenuItem = {
   key: "drawio-context-menu-item",
-  label: "Edit diagram",
+  label: "Open diagram",
   onClick,
   icon: "drawio.svg",
   fileType: [FilesType.image, FilesType.file],
   devices: [Devices.desktop],
   fileExt: [".drawio", ".png"],
-  security: [Security.Edit],
+  itemSecurity: [FilesSecurity.Download],
 };
