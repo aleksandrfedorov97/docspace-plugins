@@ -5,6 +5,7 @@ This repository comprises plugins which allow extending the functionality of [ON
 * [Codemirror](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/codemirror)
 * [draw.io](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io)
 * [Markdown](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/markdown)
+* [ImageEditor](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/image-editor)
 * [PDFConverter](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/pdf-converter)
 * [SpeechToText](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/speech-to-text)
 
