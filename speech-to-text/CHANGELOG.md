@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0
+## Changed
+- using sdk v2.0.0
+
 ## 1.0.2
 ## Changed
 - minor bug fixes

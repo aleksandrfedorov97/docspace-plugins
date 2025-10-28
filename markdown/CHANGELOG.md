@@ -1,4 +1,8 @@
 # Change Log
+
+## 1.2.0
+## Changed
+- using sdk v2.0.0
 - open file only with download permission
 
 ## 1.1.0

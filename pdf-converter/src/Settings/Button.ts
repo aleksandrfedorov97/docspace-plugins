@@ -52,7 +52,7 @@ export const userButtonProps: IButton = {
   label: "Save",
   scale: false,
   primary: true,
-  isDisabled: false,
+  isDisabled: true,
   withLoadingAfterClick: true,
 };
 

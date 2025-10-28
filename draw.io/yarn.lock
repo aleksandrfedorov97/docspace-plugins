@@ -71,14 +71,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@onlyoffice/docspace-plugin-sdk@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@onlyoffice/docspace-plugin-sdk@npm:1.1.1"
+"@onlyoffice/docspace-plugin-sdk@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@onlyoffice/docspace-plugin-sdk@npm:2.0.0"
   dependencies:
     inquirer: "npm:^9.1.0"
+    jszip: "npm:^3.10.1"
   bin:
+    build-docspace-plugin: npx/buildPlugin.js
     create-docspace-plugin: npx/index.js
-  checksum: 10c0/aa0625fe7ab3bc700cc14a6a9498f0e9e2a2290c5529d98f92b9c63918cf4f497909559ecb7959660acf3315d26eb95a68fe1296fdef390270706fa51805535a
+  checksum: 10c0/fb9100165e747035bdcc5f0423ac9673a9b76c0be6cb74062426fd3cd70d93d261f9f0967195ccae1b0dff761a39a27f7f2fbd99ef395f982619e4657d8908b0
   languageName: node
   linkType: hard
 
@@ -586,12 +588,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"draw.ioTEST@workspace:.":
+"draw.io@workspace:.":
   version: 0.0.0-use.local
-  resolution: "draw.ioTEST@workspace:."
+  resolution: "draw.io@workspace:."
   dependencies:
-    "@onlyoffice/docspace-plugin-sdk": "npm:^1.1.1"
-    jszip: "npm:^3.10.1"
+    "@onlyoffice/docspace-plugin-sdk": "npm:^2.0.0"
     prettier: "npm:2.8.6"
     ts-loader: "npm:^9.3.1"
     typescript: "npm:^4.7.4"

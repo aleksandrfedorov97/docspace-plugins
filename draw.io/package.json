@@ -1,7 +1,21 @@
 {
   "name": "draw.io",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "description": "A tool for creating diagrams, flowcharts, intelligence maps, business layouts, entity relationships, program blocks, and more",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io",
   "author": "ONLYOFFICE",
+  "maintainers": [
+    "Ascensio System SIA <integration@onlyoffice.com> (https://www.onlyoffice.com)"
+  ],
+  "bugs": {
+    "email": "support@onlyoffice.com"
+  },
+  "pluginName": "Drawio",
+  "logo": "logo.svg",
+  "cspDomains": [
+    "https://embed.diagrams.net"
+  ],
   "main": "index.ts",
   "private": true,
   "scopes": [
@@ -12,11 +26,10 @@
     "File"
   ],
   "scripts": {
-    "build": "webpack && node ./scripts/createZip.js",
+    "build": "webpack && npx build-docspace-plugin",
     "format": "npx prettier --write ."
   },
   "devDependencies": {
-    "jszip": "^3.10.1",
     "prettier": "2.8.6",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
@@ -27,14 +40,6 @@
     "braces": "3.0.3"
   },
   "dependencies": {
-    "@onlyoffice/docspace-plugin-sdk": "^1.1.1"
-  },
-  "description": "A tool for creating diagrams, flowcharts, intelligence maps, business layouts, entity relationships, program blocks, and more",
-  "pluginName": "Drawio",
-  "license": "Apache-2.0",
-  "logo": "logo.svg",
-  "homepage": "https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io",
-  "cspDomains": [
-    "https://embed.diagrams.net"
-  ]
+    "@onlyoffice/docspace-plugin-sdk": "^2.0.0"
+  }
 }
