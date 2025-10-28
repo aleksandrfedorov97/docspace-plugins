@@ -219,7 +219,8 @@ class Archives {
     const formData = new FormData();
     formData.append("file", file);
 
-    const sessionRes = await fetch(`${this.apiURL}/files/${folder.current.parentId}/upload/create_session`, {
+    const sessionRes = await fetch(`${this.apiURL}/files/${id}/upload/create_session`, {
+      // TODO: folder.current.parentId
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
