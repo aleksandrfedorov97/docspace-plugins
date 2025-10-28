@@ -74,7 +74,7 @@ let createLock = false;
 
 const mainButtonItem: IMainButtonItem = {
   key: "draw-io-main-button-item",
-  label: "Draw.io",
+  label: "draw.io",
   icon: "drawio.svg",
   onClick: (id: number) => {
     drawIo.setCurrentFolderId(id);

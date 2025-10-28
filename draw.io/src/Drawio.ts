@@ -47,11 +47,6 @@ class DrawIo {
     lib: false,
   };
 
-  userSettings = {
-    theme: "default",
-    dark: "auto",
-  };
-
   saveRequestRunning = false;
 
   currentFolderId: number | null = null;
@@ -105,44 +100,18 @@ class DrawIo {
 
   setAdminSettings = (
     url: string | null,
-    lang: { key: string } | null,
+    lang: string | null,
     off: boolean | null,
     lib: boolean | null
   ) => {
-    url && this.setUrl(url);
-    lang?.key && this.setLang(lang?.key);
-    off && this.setOff(off);
-    lib && this.setLib(lib);
+    url !== null && this.setUrl(url);
+    lang !== null && this.setLang(lang);
+    off !== null && this.setOff(off);
+    lib !== null && this.setLib(lib);
   };
 
   getAdminSettings = () => {
     return JSON.stringify(this.adminSettings);
-  };
-
-  setTheme = (theme: string) => {
-    this.userSettings.theme = theme;
-  };
-
-  setDark = (dark: string) => {
-    this.userSettings.dark = dark;
-  };
-
-  validateUserSettings = (theme: string, dark: string) => {
-    const isSameTheme = theme === this.userSettings.theme;
-    const isSameDark = dark === this.userSettings.dark;
-
-    if (isSameTheme && isSameDark) return false;
-
-    return true;
-  };
-
-  setUserSettings = (theme: string, dark: string) => {
-    this.setTheme(theme);
-    this.setDark(dark);
-  };
-
-  getUserSettings = () => {
-    return this.userSettings;
   };
 
   onLoad = async () => {
@@ -244,8 +213,6 @@ class DrawIo {
 
     //@ts-ignore
     const editor = new DiagramEditor(
-      this.userSettings.theme,
-      this.userSettings.dark,
       this.adminSettings.off,
       this.adminSettings.lib,
       this.adminSettings.lang,
@@ -325,7 +292,7 @@ class DrawIo {
 
       this.currentFileId = file.id;
 
-      const data = await fetch(file.viewUrl, {redirect: "manual"});
+      const data = await fetch(file.viewUrl);
 
       if (data.status !== 200) {
         return {
@@ -345,7 +312,6 @@ class DrawIo {
           dataText,
           "xml",
           title.replace(".drawio", ""),
-          theme,
           showSaveButton
         );
 
@@ -360,7 +326,6 @@ class DrawIo {
                 reader.result,
                 "xmlpng",
                 title.replace(".png", ""),
-                theme,
                 showSaveButton
               );
               return resolve(message);
@@ -381,16 +346,9 @@ class DrawIo {
     data: string,
     format: string,
     title: string,
-    theme: string,
     showSaveButton: boolean
   ): IMessage => {
-    let dark = this.userSettings.dark;
     let lang = this.adminSettings.lang;
-
-    if (dark === "auto") {
-      if (theme === "Base") dark = "0";
-      if (theme === "Dark") dark = "1";
-    }
 
     if (lang === "auto") {
       lang = document.cookie.replace("asc_language=", "");
@@ -398,8 +356,6 @@ class DrawIo {
 
     //@ts-ignore
     const editor = new DiagramEditor(
-      this.userSettings.theme,
-      dark,
       this.adminSettings.off,
       this.adminSettings.lib,
       lang,

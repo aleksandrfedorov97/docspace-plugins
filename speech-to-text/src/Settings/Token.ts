@@ -43,6 +43,7 @@ const onChange = (value: string) => {
         name: "acceptButton",
         props: {
           ...userButtonProps,
+          isDisabled: tokenInput.value === assemblyAI.getAPIToken(),
         },
       },
     ],
