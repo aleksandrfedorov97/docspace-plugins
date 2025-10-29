@@ -2,6 +2,7 @@
 
 This repository comprises plugins which allow extending the functionality of [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace.aspx).
 
+* [ZIP Archives](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/archives)
 * [Codemirror](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/codemirror)
 * [draw.io](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/draw.io)
 * [Markdown](https://github.com/ONLYOFFICE/docspace-plugins/tree/master/markdown)
