@@ -204,6 +204,17 @@ class Archives {
   zipFolder = async (id: number) => {
     if (!this.apiURL) this.createAPIUrl();
 
+    const parent = await this.getFolder((await this.getFolder(id)).current.parentId);
+
+    if (!parent.current.security.Create) {
+      return {
+        actions: [Actions.showToast],
+        toastProps: [
+          { type: ToastType.error, title: "Zip is not created. You can't create files in parent folder" } as IToast,
+        ],
+      };
+    }
+
     this.archiveBuffer = {};
     const folder = await this.fetchContent(id);
 
@@ -218,15 +229,6 @@ class Archives {
 
     const formData = new FormData();
     formData.append("file", file);
-
-    const parent = await this.getFolder(folder.current.parentId);
-    
-    if (!parent.current.security.Create) {
-      return {
-        actions: [Actions.showToast],
-        toastProps: [{ type: ToastType.error, title: "Zip is not created. You can't create files in parent folder" } as IToast],
-      };
-    }
 
     const sessionRes = await fetch(`${this.apiURL}/files/${parent.current.id}/upload/create_session`, {
       method: "POST",
